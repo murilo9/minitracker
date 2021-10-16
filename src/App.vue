@@ -1,10 +1,7 @@
 <template>
   <v-app>
-    <v-app-bar app elevation="0" class="mx-3" prominent>
-      <div>TODAY</div>
-      <div>WED</div>
-      <div>OCT 4</div>
-    </v-app-bar>
+    <MobileTopBar />
+    <DesktopTopBar />
 
     <v-main>
       <v-container>CONTAINER</v-container>
@@ -15,11 +12,16 @@
 
 <script lang="ts">
 import Vue from "vue";
+import MobileTopBar from "./components/MobileTopBar.vue";
+import DesktopTopBar from "./components/DesktopTopBar.vue";
 
 export default Vue.extend({
   name: "App",
 
-  components: {},
+  components: {
+    MobileTopBar,
+    DesktopTopBar,
+  },
 
   data: () => ({
     //
@@ -52,12 +54,6 @@ export default Vue.extend({
   font-family: "Fira Sans", "Roboto", sans-serif !important;
 }
 
-/* Applies flex col to app bar */
-.v-toolbar__content {
-  flex-direction: column;
-  align-items: center !important;
-}
-
 /* Applies background and font colors */
 .theme--light.v-application {
   color: $fontColor !important;
@@ -67,5 +63,18 @@ export default Vue.extend({
 .theme--light.v-app-bar.v-toolbar.v-sheet {
   background-color: transparent !important;
   border-bottom: 1px solid $borderColor;
+}
+
+/* Applies propper styling to body-1 text */
+.v-application .body-1 {
+  font-weight: 300 !important;
+  line-height: 1.25rem !important;
+}
+
+/* Makes v-main height responsive between tablet-desktop */
+@media screen and (max-width: 768px) {
+  .v-main {
+    padding-top: 160px !important;
+  }
 }
 </style>
