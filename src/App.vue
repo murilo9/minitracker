@@ -1,33 +1,8 @@
 <template>
-  <v-app>
-    <MobileTopBar />
-    <DesktopTopBar />
-
-    <v-main>
-      <v-container>CONTAINER</v-container>
-    </v-main>
-    <v-footer>Footer</v-footer>
-  </v-app>
+  <div id="app">
+    <router-view />
+  </div>
 </template>
-
-<script lang="ts">
-import Vue from "vue";
-import MobileTopBar from "./components/MobileTopBar.vue";
-import DesktopTopBar from "./components/DesktopTopBar.vue";
-
-export default Vue.extend({
-  name: "App",
-
-  components: {
-    MobileTopBar,
-    DesktopTopBar,
-  },
-
-  data: () => ({
-    //
-  }),
-});
-</script>
 
 <style lang="scss">
 @font-face {
