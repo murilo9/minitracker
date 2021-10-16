@@ -3,18 +3,6 @@ $backgroundColor: #C5E0E1;
 $fontColor: #032D30;
 $borderColor: rgba(3, 45, 48, 0.6);
 
-.v-application {
-    font-family: 'Fira Sans', 'Roboto', sans-serif;
-}
-
-/* Applies background and font colors */
-.theme--light.v-application{
-    background-color: $backgroundColor;
-    color: $fontColor;
-}
-
-/* Applies top bar transparency*/
-.theme--light.v-app-bar.v-toolbar.v-sheet{
-    background-color: transparent;
-    border-bottom: 1px solid $borderColor;
-}
+$material-light: (
+  'background': #C5E0E1,
+);
