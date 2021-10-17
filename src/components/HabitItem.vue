@@ -7,10 +7,10 @@
     <v-btn text class="mtk-habit-button pl-2 pr-0">
       {{ habit.name }}
     </v-btn>
-    <v-btn text icon class="float-right">
-      <CompletedIcon v-if="habitStatus === 'COMPLETED'" />
-      <FailedIcon v-if="habitStatus === 'FAILED'" />
-      <SkippedIcon v-if="habitStatus === 'SKIPPED' || !habitStatus" />
+    <v-btn text icon class="float-right" @click="toggleStatus">
+      <CompletedIcon v-if="habitStatus === 'DONE'" />
+      <FailedIcon v-else-if="habitStatus === 'FAILED'" />
+      <SkippedIcon v-else />
     </v-btn>
     <v-expand-transition>
       <div class="mtk-habit-details" v-show="showDetails">DETAILS</div>
@@ -23,7 +23,7 @@ import Habit from "@/types/Habit";
 import CompletedIcon from "@/components/CompletedIcon.vue";
 import FailedIcon from "@/components/FailedIcon.vue";
 import SkippedIcon from "@/components/SkippedIcon.vue";
-import getHabitStatusByDate from "@/utils/getHabitStatusByDate";
+import getHabitDataByDate from "@/utils/getHabitDataByDate";
 import Vue from "vue";
 export default Vue.extend({
   components: {
@@ -34,8 +34,8 @@ export default Vue.extend({
   computed: {
     habitStatus() {
       const today = new Date();
-      const habitStatus = getHabitStatusByDate(today, this.habit);
-      return habitStatus;
+      const habitData = getHabitDataByDate(today, this.habit);
+      return habitData?.status;
     },
   },
   data() {
@@ -45,6 +45,14 @@ export default Vue.extend({
   },
   props: {
     habit: Object as () => Habit,
+  },
+  methods: {
+    toggleStatus() {
+      this.$store.commit("toggleHabitStatus", {
+        habitId: this.habit.id,
+        date: new Date(),
+      });
+    },
   },
 });
 </script>

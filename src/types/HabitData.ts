@@ -1,8 +1,9 @@
+import DateFormat from "./DateFormat";
 import HabitStatus from "./HabitStatus";
 
 type HabitData = {
-  status: HabitStatus,
-  date: Date
+  status: HabitStatus | null,
+  date: DateFormat
 }
 
 export default HabitData;

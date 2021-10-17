@@ -1,7 +1,6 @@
 enum HabitStatus {
   DONE = 'DONE',
-  FAILED = 'FAILED',
-  SKIPPED = 'SKIPPED'
+  FAILED = 'FAILED'
 }
 
 export default HabitStatus;
