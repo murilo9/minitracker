@@ -24,9 +24,14 @@
   src: url("./assets/font/FiraSans/FiraSans-Light.ttf") format("truetype");
   font-weight: 200;
 }
+
 /* Applies font-family */
 .v-application {
   font-family: "Fira Sans", "Roboto", sans-serif !important;
+}
+
+.v-main {
+  max-height: calc(100vh - 48px);
 }
 
 /* Applies background and font colors */
