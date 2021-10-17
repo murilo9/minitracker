@@ -7,7 +7,13 @@
     <v-btn text class="mtk-habit-button pl-2 pr-0">
       {{ habit.name }}
     </v-btn>
-    <v-btn text icon class="float-right" @click="toggleStatus">
+    <v-btn
+      text
+      icon
+      class="float-right"
+      @click="toggleStatus"
+      v-show="!showDetails"
+    >
       <CompletedIcon v-if="habitStatus === 'DONE'" />
       <FailedIcon v-else-if="habitStatus === 'FAILED'" />
       <SkippedIcon v-else />
