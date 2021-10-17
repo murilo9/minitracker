@@ -52,4 +52,9 @@
     padding-top: 160px !important;
   }
 }
+
+/* Makes all footers transparent */
+.v-sheet.v-footer {
+  background-color: transparent !important;
+}
 </style>
