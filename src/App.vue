@@ -57,4 +57,11 @@
 .v-sheet.v-footer {
   background-color: transparent !important;
 }
+
+/* ul reset */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 </style>
