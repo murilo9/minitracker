@@ -1,7 +1,8 @@
 <template>
   <li>
-    <v-btn text icon>
-      <v-icon>mdi-menu-right</v-icon>
+    <v-btn text icon @click="showDetails = !showDetails">
+      <v-icon v-if="showDetails">mdi-menu-down</v-icon>
+      <v-icon v-else>mdi-menu-right</v-icon>
     </v-btn>
     <v-btn text class="mtk-habit-button pl-2 pr-0">
       {{ habit.name }}
@@ -11,6 +12,7 @@
       <FailedIcon v-if="habitStatus === 'FAILED'" />
       <SkippedIcon v-if="habitStatus === 'SKIPPED' || !habitStatus" />
     </v-btn>
+    <div class="mtk-habit-details" v-show="showDetails">DETAILS</div>
   </li>
 </template>
 
@@ -33,6 +35,11 @@ export default Vue.extend({
       const habitStatus = getHabitStatusByDate(today, this.habit);
       return habitStatus;
     },
+  },
+  data() {
+    return {
+      showDetails: false,
+    };
   },
   props: {
     habit: Object as () => Habit,
