@@ -4,10 +4,15 @@
     <DesktopTopBar />
 
     <v-main>
-      <v-container>
-        <ul class="mt-3">
+      <v-container class="mtk-list-container py-2">
+        <ul class="mt-3 pl-0">
           <li v-for="habit in habits" :key="habit.id">
-            {{ habit.name.toUpperCase() }}
+            <v-btn text icon>
+              <v-icon>mdi-menu-right</v-icon>
+            </v-btn>
+            <v-btn text class="mtk-habit-button pl-2 pr-0">
+              {{ habit.name }}
+            </v-btn>
           </li>
         </ul>
       </v-container>
@@ -21,7 +26,6 @@
 </template>
 
 <script lang="ts">
-// @ is an alias to /src
 import Vue from "vue";
 import MobileTopBar from "../components/MobileTopBar.vue";
 import DesktopTopBar from "../components/DesktopTopBar.vue";
@@ -42,6 +46,21 @@ export default Vue.extend({
     openPage(page: string) {
       this.$router.push(page);
     },
+    toggleHabitStatus(habitId: string) {
+      this.$store.commit("toggleHabitStatus", habitId);
+    },
   },
 });
 </script>
+
+<style scoped>
+.mtk-habit-button {
+  letter-spacing: unset;
+  justify-content: flex-start;
+  width: 65vw;
+}
+.mtk-list-container {
+  height: 100%;
+  overflow-x: auto;
+}
+</style>

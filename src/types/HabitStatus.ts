@@ -1,8 +1,7 @@
-import HabitAction from "./HabitAction";
-
-type HabitStatus = {
-  result: HabitAction,
-  date: Date
+enum HabitStatus {
+  DONE = 'DONE',
+  FAILED = 'FAILED',
+  SKIPPED = 'SKIPPED'
 }
 
 export default HabitStatus;
