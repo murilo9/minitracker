@@ -10,9 +10,9 @@ Vue.use(Vuex);
 
 const nextStatus = function (currentStatus: HabitStatus | null): HabitStatus | null {
   switch (currentStatus) {
-    case HabitStatus.DONE: return null;
-    case HabitStatus.FAILED: return HabitStatus.DONE;
-    case null: return HabitStatus.FAILED;
+    case HabitStatus.DONE: return HabitStatus.FAILED;
+    case HabitStatus.FAILED: return null;
+    case null: return HabitStatus.DONE;
   }
 }
 
