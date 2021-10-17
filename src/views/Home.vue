@@ -6,11 +6,7 @@
     <v-main>
       <v-container class="mtk-list-container py-2">
         <ul class="mt-3 pl-0">
-          <HabitItem
-            v-for="habit in habits"
-            :key="habit.id"
-            :habitData="habit"
-          />
+          <HabitItem v-for="habit in habits" :key="habit.id" :habit="habit" />
         </ul>
       </v-container>
     </v-main>
