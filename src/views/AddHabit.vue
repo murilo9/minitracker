@@ -36,7 +36,7 @@ export default Vue.extend({
       habitForm: {
         id: `_${new Date().getTime() + Math.floor(Math.random() * 10000)}`,
         name: "",
-        status: [],
+        data: [],
         notes: [],
       },
     };
