@@ -74,7 +74,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mtk-title-row {
   font-weight: 600;
 }
