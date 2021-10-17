@@ -19,7 +19,9 @@
       <SkippedIcon v-else />
     </v-btn>
     <v-expand-transition>
-      <div class="mtk-habit-details" v-show="showDetails">DETAILS</div>
+      <div class="mtk-habit-details" v-show="showDetails">
+        <WeekTable />
+      </div>
     </v-expand-transition>
   </li>
 </template>
@@ -29,6 +31,7 @@ import Habit from "@/types/Habit";
 import CompletedIcon from "@/components/CompletedIcon.vue";
 import FailedIcon from "@/components/FailedIcon.vue";
 import SkippedIcon from "@/components/SkippedIcon.vue";
+import WeekTable from "@/components/WeekTable.vue";
 import getHabitDataByDate from "@/utils/getHabitDataByDate";
 import Vue from "vue";
 export default Vue.extend({
@@ -36,6 +39,7 @@ export default Vue.extend({
     CompletedIcon,
     FailedIcon,
     SkippedIcon,
+    WeekTable,
   },
   computed: {
     habitStatus() {
