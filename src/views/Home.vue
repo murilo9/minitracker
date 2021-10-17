@@ -6,14 +6,11 @@
     <v-main>
       <v-container class="mtk-list-container py-2">
         <ul class="mt-3 pl-0">
-          <li v-for="habit in habits" :key="habit.id">
-            <v-btn text icon>
-              <v-icon>mdi-menu-right</v-icon>
-            </v-btn>
-            <v-btn text class="mtk-habit-button pl-2 pr-0">
-              {{ habit.name }}
-            </v-btn>
-          </li>
+          <HabitItem
+            v-for="habit in habits"
+            :key="habit.id"
+            :habitData="habit"
+          />
         </ul>
       </v-container>
     </v-main>
@@ -29,6 +26,7 @@
 import Vue from "vue";
 import MobileTopBar from "../components/MobileTopBar.vue";
 import DesktopTopBar from "../components/DesktopTopBar.vue";
+import HabitItem from "../components/HabitItem.vue";
 import { mapState } from "vuex";
 
 export default Vue.extend({
@@ -36,6 +34,7 @@ export default Vue.extend({
   components: {
     MobileTopBar,
     DesktopTopBar,
+    HabitItem,
   },
   computed: {
     ...mapState({
