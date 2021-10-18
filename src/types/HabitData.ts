@@ -2,7 +2,7 @@ import DateFormat from "./DateFormat";
 import HabitStatus from "./HabitStatus";
 
 type HabitData = {
-  status: HabitStatus | null,
+  status: HabitStatus | null | undefined,
   date: DateFormat
 }
 

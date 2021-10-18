@@ -8,11 +8,12 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-const nextStatus = function (currentStatus: HabitStatus | null): HabitStatus | null {
+const nextStatus = function (currentStatus: HabitStatus | null | undefined): HabitStatus {
   switch (currentStatus) {
     case HabitStatus.DONE: return HabitStatus.FAILED;
-    case HabitStatus.FAILED: return null;
-    case null: return HabitStatus.DONE;
+    case HabitStatus.FAILED: return HabitStatus.SKIPPED;
+    case HabitStatus.SKIPPED: return HabitStatus.DONE;
+    default: return HabitStatus.DONE;
   }
 }
 

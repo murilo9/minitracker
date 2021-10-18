@@ -20,7 +20,7 @@
     </v-btn>
     <v-expand-transition>
       <div class="mtk-habit-details" v-show="showDetails">
-        <WeekTable :habit="habit"/>
+        <WeekTable :habit="habit" />
       </div>
     </v-expand-transition>
   </li>
