@@ -1,6 +1,6 @@
 <template>
   <div class="mtk-week-table">
-    <div class="mtk-title-row d-flex justify-center">
+    <div class="mtk-title-row text-center">
       <span
         class="item text-center d-inline-block"
         v-for="(weekDay, w) in weekDays"
@@ -8,21 +8,41 @@
         >{{ weekDay.name }}</span
       >
     </div>
-    <div class="mtk-data-row d-flex justify-center mt-1">
-      <span
-        class="item text-center d-inline-block"
-        v-for="(weekDay, w) in weekDays"
-        :key="w"
-      >
-        {{ weekDay.label }}
-      </span>
+    <div class="mtk-data-row d-flex justify-center align-center mt-1">
+      <template v-for="(weekDay, w) in weekDays">
+        <v-btn
+          text
+          icon
+          :key="w" 
+          class="item text-center d-inline-block"
+          @click="toggleStatus"
+          v-if="weekDayIsPast(w)"
+        >
+          <CompletedIcon v-if="habitStatus === 'DONE'" />
+          <FailedIcon v-else-if="habitStatus === 'FAILED'" />
+          <SkippedIcon v-else />
+        </v-btn>
+        <span v-else :key="w" class="item text-center d-inline-block">
+          {{weekDay.label}}
+        </span>
+      </template>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import Habit from "@/types/Habit";
+import getHabitDataByDate from "@/utils/getHabitDataByDate";
+import CompletedIcon from "@/components/CompletedIcon.vue";
+import FailedIcon from "@/components/FailedIcon.vue";
+import SkippedIcon from "@/components/SkippedIcon.vue";
 import Vue from "vue";
 export default Vue.extend({
+  components: {
+    CompletedIcon,
+    FailedIcon,
+    SkippedIcon
+  },
   data() {
     return {
       weekDays: [
@@ -56,6 +76,25 @@ export default Vue.extend({
         },
       ],
     };
+  },
+  props: {
+    habit: Object as () => Habit
+  },
+  computed: {
+    habitStatus() {
+      const today = new Date();
+      const habitData = getHabitDataByDate(today, this.habit);
+      return habitData?.status;
+    },
+  },
+  methods: {
+    weekDayIsPast(weekDay: number): boolean {
+      const todayWeekDay = new Date().getDay();
+      return todayWeekDay >= weekDay
+    },
+    toggleStatus(){
+      console.log('toggle')
+    }
   },
   mounted() {
     // Set today
