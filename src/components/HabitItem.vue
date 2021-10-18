@@ -34,6 +34,7 @@ import SkippedIcon from "@/components/SkippedIcon.vue";
 import WeekTable from "@/components/WeekTable.vue";
 import getHabitDataByDate from "@/utils/getHabitDataByDate";
 import Vue from "vue";
+import getDateFormat from "@/utils/getDateFormat";
 export default Vue.extend({
   components: {
     CompletedIcon,
@@ -60,7 +61,7 @@ export default Vue.extend({
     toggleStatus() {
       this.$store.commit("toggleHabitStatus", {
         habitId: this.habit.id,
-        date: new Date(),
+        date: getDateFormat(new Date()),
       });
     },
   },

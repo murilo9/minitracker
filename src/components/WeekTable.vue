@@ -10,18 +10,7 @@
     </div>
     <div class="mtk-data-row d-flex justify-center align-center mt-1">
       <template v-for="(weekDay, w) in weekDays">
-        <v-btn
-          text
-          icon
-          :key="w" 
-          class="item text-center d-inline-block"
-          @click="toggleStatus"
-          v-if="weekDayIsPast(w)"
-        >
-          <CompletedIcon v-if="habitStatus === 'DONE'" />
-          <FailedIcon v-else-if="habitStatus === 'FAILED'" />
-          <SkippedIcon v-else />
-        </v-btn>
+        <WeekTableButton :key="w" v-if="weekDayIsPast(w)" :habit="habit" :date="[currentYear, currentMonth, weekDay.label]"/>
         <span v-else :key="w" class="item text-center d-inline-block">
           {{weekDay.label}}
         </span>
@@ -32,16 +21,13 @@
 
 <script lang="ts">
 import Habit from "@/types/Habit";
+import WeekTableButton from '@/components/WeekTableButton.vue';
 import getHabitDataByDate from "@/utils/getHabitDataByDate";
-import CompletedIcon from "@/components/CompletedIcon.vue";
-import FailedIcon from "@/components/FailedIcon.vue";
-import SkippedIcon from "@/components/SkippedIcon.vue";
+
 import Vue from "vue";
 export default Vue.extend({
   components: {
-    CompletedIcon,
-    FailedIcon,
-    SkippedIcon
+    WeekTableButton
   },
   data() {
     return {
@@ -81,20 +67,18 @@ export default Vue.extend({
     habit: Object as () => Habit
   },
   computed: {
-    habitStatus() {
-      const today = new Date();
-      const habitData = getHabitDataByDate(today, this.habit);
-      return habitData?.status;
+    currentMonth(){
+      return new Date().getMonth() + 1;
     },
+    currentYear(){
+      return new Date().getFullYear();
+    }
   },
   methods: {
     weekDayIsPast(weekDay: number): boolean {
       const todayWeekDay = new Date().getDay();
       return todayWeekDay >= weekDay
     },
-    toggleStatus(){
-      console.log('toggle')
-    }
   },
   mounted() {
     // Set today

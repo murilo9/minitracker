@@ -40,10 +40,7 @@ export default Vue.extend({
   methods: {
     openPage(page: string) {
       this.$router.push(page);
-    },
-    toggleHabitStatus(habitId: string) {
-      this.$store.commit("toggleHabitStatus", habitId);
-    },
+    }
   },
 });
 </script>
