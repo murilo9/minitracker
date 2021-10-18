@@ -10,7 +10,7 @@
     <v-btn
       text
       icon
-      class="float-right"
+      class="float-right today"
       @click="toggleStatus"
       v-show="!showDetails"
     >

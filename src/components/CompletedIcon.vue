@@ -15,9 +15,10 @@ export default {
 
 <style scoped>
 .v-icon {
-  color: #338531;
-}
-.v-icon.today {
+  color: #338531 !important;
   opacity: 0.5;
+}
+.today .v-icon {
+  opacity: 1;
 }
 </style>

@@ -15,10 +15,11 @@ export default {
 
 <style scoped>
 .v-icon {
-  color: #61acae;
+  color: #61acae !important;
+  opacity: 0.5;
   transform: rotate(90deg);
 }
-.v-icon.today {
-  opacity: 0.5;
+.today .v-icon {
+  opacity: 1;
 }
 </style>
