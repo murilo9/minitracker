@@ -1,8 +1,8 @@
 {
-  "name": "minithacker",
+  "name": "minitacker",
   "version": "0.1.0",
   "private": true,
-  "description": "A minimalist habit hacker app",
+  "description": "A minimalist habit tracker app",
   "author": {
     "name": "Murilo Henrique Matias",
     "email": "murilohenriquematias@gmail.com"

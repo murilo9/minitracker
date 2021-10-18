@@ -1,4 +1,4 @@
-# minithacker
+# Minitracker
 
 ## Project setup
 ```
