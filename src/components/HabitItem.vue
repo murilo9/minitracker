@@ -4,7 +4,7 @@
       <v-icon v-if="showDetails">mdi-menu-down</v-icon>
       <v-icon v-else>mdi-menu-right</v-icon>
     </v-btn>
-    <v-btn text class="mtk-habit-button pl-2 pr-0">
+    <v-btn text class="mtk-habit-button pl-2 pr-0" @click="openHabitDetails">
       {{ habit.name }}
     </v-btn>
     <v-btn
@@ -63,6 +63,9 @@ export default Vue.extend({
         habitId: this.habit.id,
         date: getDateFormat(new Date()),
       });
+    },
+    openHabitDetails() {
+      this.$router.push(`/details/${this.habit.id}`);
     },
   },
 });
