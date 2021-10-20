@@ -71,5 +71,17 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style scoped>
+.mtk-habit-button {
+  max-width: 75%;
+  display: inline-block;
+}
+>>> .mtk-habit-button .v-btn__content {
+  overflow-x: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  display: block;
+}
 </style>
