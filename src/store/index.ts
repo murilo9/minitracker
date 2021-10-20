@@ -40,6 +40,11 @@ export default new Vuex.Store({
           }
           habitToToggle.data.push(currentHabitData)
         }
+        // If there's habit data for the specified date, update it
+        else {
+          const currentStatus = currentHabitData.status
+          currentHabitData.status = nextStatus(currentStatus)
+        }
         // Finally, toggles status for the habit data
         currentHabitData.status = nextStatus(currentHabitData.status)
       }
