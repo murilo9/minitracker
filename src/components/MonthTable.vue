@@ -1,30 +1,38 @@
 <template>
   <div class="mtk-month-table">
     <div class="mtk-title-row d-flex justify-center">
-      <span
-        class="item text-center d-inline-block"
+      <div
+        class="item d-inline-flex align-center justify-center"
         v-for="(weekDay, w) in weekDays"
         :key="w"
-        >{{ weekDay }}</span
       >
+        {{ weekDay }}
+      </div>
     </div>
     <div
       class="mtk-data-row d-flex justify-center"
       v-for="(week, w) in monthWeeks"
       :key="w"
     >
-      <span
-        class="item text-center d-inline-block"
+      <div
+        class="item d-inline-flex flex-column align-center justify-center"
+        :class="{ today: isToday(weekDay.data) }"
         v-for="(weekDay, d) in week"
         :key="d"
       >
-        {{ weekDay.data }}
-      </span>
+        <div>{{ weekDay.data }}</div>
+        <div class="item-note d-flex align-center justify-center">
+          <v-icon v-if="notesForDay(weekDay.data) && weekDay.data"
+            >mdi-circle-small</v-icon
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import Habit from "@/types/Habit";
 import Vue from "vue";
 export default Vue.extend({
   data() {
@@ -43,6 +51,7 @@ export default Vue.extend({
   props: {
     month: Number as () => number,
     year: Number as () => number,
+    habit: Object as () => Habit,
   },
   methods: {
     fillMonth() {
@@ -65,6 +74,14 @@ export default Vue.extend({
       } while (baseDate.getDate() > 1);
       this.$forceUpdate();
     },
+    notesForDay(day: number) {
+      return true;
+      // TODO: find and return habit notes for specified day
+    },
+    isToday(day: number) {
+      const today = new Date();
+      return today.getDate() === day;
+    },
   },
   mounted() {
     this.fillMonth();
@@ -74,9 +91,26 @@ export default Vue.extend({
 
 <style>
 .mtk-title-row {
-  font-weight: 600;
+  font-weight: 800;
 }
 .item {
-  width: 32px;
+  width: 24px;
+  height: 24px;
+  font-size: 15px;
+  margin: 6px;
+  position: relative;
+}
+.item.today {
+  border: 1px solid;
+  border-radius: 50%;
+}
+.item-note {
+  height: 6px !important;
+  width: 100%;
+  position: absolute;
+  bottom: -10px;
+}
+.item-note .v-icon {
+  font-size: 20px;
 }
 </style>
