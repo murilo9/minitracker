@@ -2,17 +2,28 @@
   <div class="mtk-week-table">
     <div class="mtk-title-row text-center">
       <span
-        class="item text-center d-inline-block"
+        class="item d-inline-flex justify-center align-center"
+        :class="{ today: weekDayIsToday(w) }"
         v-for="(weekDay, w) in weekDays"
         :key="w"
         >{{ weekDay.name }}</span
       >
     </div>
-    <div class="mtk-data-row d-flex justify-center align-center mt-1">
+    <div class="mtk-data-row d-flex justify-center align-center">
       <template v-for="(weekDay, w) in weekDays">
-        <WeekTableButton :key="w" v-if="weekDayIsPast(w)" :habit="habit" :date="[currentYear, currentMonth, weekDay.label]"/>
-        <span v-else :key="w" class="item text-center d-inline-block">
-          {{weekDay.label}}
+        <WeekTableButton
+          :key="w"
+          v-if="weekDayIsPast(w)"
+          :class="{ 'is-past': weekDayIsPast(w) }"
+          :habit="habit"
+          :date="[currentYear, currentMonth, weekDay.label]"
+        />
+        <span
+          v-else
+          :key="w"
+          class="item text-center d-inline-flex align-center justify-center"
+        >
+          {{ weekDay.label }}
         </span>
       </template>
     </div>
@@ -21,13 +32,12 @@
 
 <script lang="ts">
 import Habit from "@/types/Habit";
-import WeekTableButton from '@/components/WeekTableButton.vue';
-import getHabitDataByDate from "@/utils/getHabitDataByDate";
+import WeekTableButton from "@/components/WeekTableButton.vue";
 
 import Vue from "vue";
 export default Vue.extend({
   components: {
-    WeekTableButton
+    WeekTableButton,
   },
   data() {
     return {
@@ -64,20 +74,24 @@ export default Vue.extend({
     };
   },
   props: {
-    habit: Object as () => Habit
+    habit: Object as () => Habit,
   },
   computed: {
-    currentMonth(){
+    currentMonth() {
       return new Date().getMonth() + 1;
     },
-    currentYear(){
+    currentYear() {
       return new Date().getFullYear();
-    }
+    },
   },
   methods: {
     weekDayIsPast(weekDay: number): boolean {
       const todayWeekDay = new Date().getDay();
-      return todayWeekDay >= weekDay
+      return todayWeekDay >= weekDay;
+    },
+    weekDayIsToday(weekDay: number): boolean {
+      const todayWeekDay = new Date().getDay();
+      return weekDay === todayWeekDay;
     },
   },
   mounted() {
@@ -100,8 +114,26 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .mtk-title-row {
   font-weight: 600;
+  .item.today {
+    border: 1px solid;
+  }
 }
 .item {
-  width: 32px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 8px;
+}
+.mtk-data-row {
+  .item {
+    transition: 0.2s all;
+    &.is-past,
+    &.today {
+      &:active {
+        transform: scale(0.98);
+        background: rgba(0, 0, 0, 0.24);
+      }
+    }
+  }
 }
 </style>
