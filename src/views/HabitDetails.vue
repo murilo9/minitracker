@@ -101,9 +101,9 @@ export default Vue.extend({
     const habitId = this.$route.params.habitId;
     const habit = this.habits.find((habit: Habit) => habit.id === habitId);
     if (habit) {
-      this.habit = habit;
+      this.$data.habit = habit;
     }
-    this.loading = false;
+    this.$data.loading = false;
   },
   methods: {
     handleBackClick(): void {
