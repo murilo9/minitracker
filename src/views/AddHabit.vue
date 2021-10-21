@@ -6,6 +6,8 @@
         <v-text-field
           placeholder="Name"
           v-model="habitForm.name"
+          @keyup.enter="handleAddClick"
+          :error-messages="errorMessage"
         ></v-text-field>
       </v-container>
     </v-main>
@@ -39,6 +41,7 @@ export default Vue.extend({
         data: [],
         notes: [],
       },
+      errorMessage: "",
     };
   },
   methods: {
@@ -46,8 +49,15 @@ export default Vue.extend({
       this.$router.push("/");
     },
     handleAddClick(): void {
-      this.$store.commit("addHabit", { ...this.habitForm });
-      this.$router.push("/");
+      const habitLength = this.habitForm.name.length;
+      if (habitLength === 0) {
+        this.errorMessage = "Habit name can't be empty";
+      } else if (habitLength > 50) {
+        this.errorMessage = "Habit name can't be more than 50 characters long";
+      } else {
+        this.$store.commit("addHabit", { ...this.habitForm });
+        this.$router.push("/");
+      }
     },
   },
 });
