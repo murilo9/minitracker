@@ -19,6 +19,7 @@
         class="my-4"
       />
       <v-divider></v-divider>
+      <HabitAcomplishment :month="currentMonth" :habit="habit" />
     </v-main>
     <v-divider></v-divider>
     <v-footer>
@@ -69,12 +70,14 @@
 <script lang="ts">
 import Vue from "vue";
 import MonthTable from "@/components/MonthTable.vue";
+import HabitAcomplishment from '@/components/HabitAcomplishment.vue';
 import { mapState } from "vuex";
 import Habit from "@/types/Habit";
 import monthName from "@/utils/monthName";
 export default Vue.extend({
   components: {
     MonthTable,
+    HabitAcomplishment
   },
   data() {
     return {
