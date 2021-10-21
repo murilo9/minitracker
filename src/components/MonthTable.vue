@@ -16,15 +16,15 @@
     >
       <div
         class="item d-inline-flex flex-column align-center justify-center"
-        :class="{ today: isToday(weekDay.data) }"
+        :class="{
+          today: isToday(weekDay.data),
+          'is-past': isPast(weekDay.data),
+        }"
         v-for="(weekDay, d) in week"
         :key="d"
         @click="toggle(weekDay.data)"
       >
-        <div
-          :style="{ color: dayColor(weekDay.data) }"
-          :class="{ 'is-past': isPast(weekDay.data) }"
-        >
+        <div :style="{ color: dayColor(weekDay.data) }">
           {{ weekDay.data }}
         </div>
         <div class="item-note d-flex align-center justify-center">
@@ -147,16 +147,25 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
 .mtk-title-row {
   font-weight: 800;
 }
 .item {
-  width: 24px;
-  height: 24px;
-  font-size: 15px;
-  margin: 6px;
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  margin: 4px;
   position: relative;
+  border-radius: 50%;
+  &.is-past,
+  &.today {
+    transition: 0.2s all;
+    &:active {
+      transform: scale(0.98);
+      background: rgba(0, 0, 0, 0.24);
+    }
+  }
 }
 
 .item.today {
