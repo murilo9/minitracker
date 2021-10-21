@@ -57,9 +57,7 @@
           <v-btn color="primary" text @click="showDeleteHabitDialog = false">
             Cancel
           </v-btn>
-          <v-btn color="error" text @click="showDeleteHabitDialog = false">
-            Delete
-          </v-btn>
+          <v-btn color="error" text @click="handleDeleteClick"> Delete </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -70,14 +68,14 @@
 <script lang="ts">
 import Vue from "vue";
 import MonthTable from "@/components/MonthTable.vue";
-import HabitAcomplishment from '@/components/HabitAcomplishment.vue';
+import HabitAcomplishment from "@/components/HabitAcomplishment.vue";
 import { mapState } from "vuex";
 import Habit from "@/types/Habit";
 import monthName from "@/utils/monthName";
 export default Vue.extend({
   components: {
     MonthTable,
-    HabitAcomplishment
+    HabitAcomplishment,
   },
   data() {
     return {
@@ -110,6 +108,10 @@ export default Vue.extend({
   },
   methods: {
     handleBackClick(): void {
+      this.$router.push("/");
+    },
+    handleDeleteClick() {
+      this.$store.commit("deleteHabit", this.$data.habit.id);
       this.$router.push("/");
     },
   },

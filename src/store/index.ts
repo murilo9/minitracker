@@ -48,6 +48,14 @@ export default new Vuex.Store({
         // Finally, toggles status for the habit data
         currentHabitData.status = nextStatus(currentHabitData.status)
       }
+    },
+    deleteHabit(state: VuexState, habitId: string) {
+      // Find the habit index (it MUST exist, but let's check it anyway...)
+      const habitToDeleteIndex = state.habits.findIndex(habit => habit.id === habitId);
+      // If habit exists
+      if (habitToDeleteIndex > -1) {
+        state.habits.splice(habitToDeleteIndex, 1);
+      }
     }
   },
   actions: {
