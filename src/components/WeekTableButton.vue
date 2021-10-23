@@ -1,5 +1,11 @@
 <template>
-  <v-btn text icon :class="{ today: isToday }" @click="toggleStatus">
+  <v-btn
+    text
+    icon
+    :disabled="!isPast"
+    :class="{ today: isToday, 'date-item': true }"
+    @click="toggleStatus"
+  >
     <CompletedIcon v-if="habitStatus === 'DONE'" />
     <FailedIcon v-else-if="habitStatus === 'FAILED'" />
     <SkippedIcon v-else-if="habitStatus === 'SKIPPED'" />
@@ -32,6 +38,7 @@ export default Vue.extend({
   props: {
     habit: Object as () => Habit,
     date: Array as () => DateFormat,
+    isPast: Boolean as () => boolean,
   },
   methods: {
     toggleStatus() {
@@ -41,6 +48,10 @@ export default Vue.extend({
         date: date,
       });
       this.$forceUpdate();
+    },
+    weekDayIsPast(weekDay: number): boolean {
+      const todayWeekDay = new Date().getDay();
+      return todayWeekDay >= weekDay;
     },
   },
   computed: {

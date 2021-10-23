@@ -69,4 +69,19 @@ ul {
   padding: 0;
   margin: 0;
 }
+
+.date-item {
+  /* Disabled v-btn for week day titles must have normal (not blured) font color */
+  &.theme--light.v-btn.v-btn--disabled {
+    color: inherit !important;
+    border-color: inherit !important;
+  }
+  &.v-btn--icon.v-size--default {
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    margin: 4px;
+    box-sizing: content-box;
+  }
+}
 </style>

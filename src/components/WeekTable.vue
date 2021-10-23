@@ -4,7 +4,7 @@
       <v-btn
         text
         icon
-        class=""
+        class="date-item"
         :outlined="weekDayIsToday(w)"
         v-for="(weekDay, w) in weekDays"
         disabled
@@ -116,16 +116,4 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-/* Disabled v-btn for week day titles must have normal (not blured) font color */
-.theme--light.v-btn.v-btn--disabled {
-  color: inherit !important;
-  border-color: inherit;
-}
-.v-btn--icon.v-size--default {
-  width: 24px;
-  height: 24px;
-  padding: 4px;
-  margin: 4px;
-  box-sizing: content-box;
-}
 </style>

@@ -1,25 +1,27 @@
 <template>
-  <div class="mtk-month-table">
-    <div class="mtk-title-row d-flex justify-center">
-      <div
-        class="item d-inline-flex align-center justify-center"
+  <div>
+    <div class="d-flex justify-center">
+      <v-btn
+        text
+        icon
+        disabled
+        class="date-item"
         v-for="(weekDay, w) in weekDays"
         :key="w"
       >
         {{ weekDay }}
-      </div>
+      </v-btn>
     </div>
-    <div
-      class="mtk-data-row d-flex justify-center"
-      v-for="(week, w) in monthWeeks"
-      :key="w"
-    >
-      <div
-        class="item d-inline-flex flex-column align-center justify-center"
+    <div class="d-flex justify-center" v-for="(week, w) in monthWeeks" :key="w">
+      <v-btn
+        text
+        icon
         :class="{
           today: isToday(weekDay.data),
           'is-past': isPast(weekDay.data),
+          'date-item': true,
         }"
+        :disabled="!(isPast(weekDay.data) || isToday(weekDay.data))"
         v-for="(weekDay, d) in week"
         :key="d"
         @click="toggle(weekDay.data)"
@@ -32,7 +34,7 @@
             mdi-circle-small
           </v-icon>
         </div>
-      </div>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -92,7 +94,8 @@ export default Vue.extend({
       return today.getDate() === day;
     },
     isPast(day: number): boolean {
-      return day < new Date().getDate();
+      const todayMonthDay = new Date().getDate();
+      return day < todayMonthDay;
     },
     toggle(monthDay: number) {
       const todayMonthDay = new Date().getDate();
