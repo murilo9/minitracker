@@ -1,30 +1,34 @@
 <template>
-  <div class="mtk-week-table">
-    <div class="mtk-title-row text-center">
-      <span
-        class="item d-inline-flex justify-center align-center"
-        :class="{ today: weekDayIsToday(w) }"
+  <div>
+    <div class="d-flex justify-center align-center">
+      <v-btn
+        text
+        icon
+        class=""
+        :outlined="weekDayIsToday(w)"
         v-for="(weekDay, w) in weekDays"
+        disabled
         :key="w"
-        >{{ weekDay.name }}</span
       >
+        {{ weekDay.name }}
+      </v-btn>
     </div>
-    <div class="mtk-data-row d-flex justify-center align-center">
+    <div class="mt-1 d-flex justify-center align-center">
       <template v-for="(weekDay, w) in weekDays">
         <WeekTableButton
           :key="w"
-          v-if="weekDayIsPast(w)"
+          :isPast="weekDayIsPast(w)"
           :class="{ 'is-past': weekDayIsPast(w) }"
           :habit="habit"
           :date="[currentYear, currentMonth, weekDay.label]"
         />
-        <span
+        <!--<span
           v-else
           :key="w"
           class="item text-center d-inline-flex align-center justify-center"
         >
           {{ weekDay.label }}
-        </span>
+        </span>-->
       </template>
     </div>
   </div>
@@ -112,28 +116,16 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.mtk-title-row {
-  font-weight: 600;
-  .item.today {
-    border: 1px solid;
-  }
+/* Disabled v-btn for week day titles must have normal (not blured) font color */
+.theme--light.v-btn.v-btn--disabled {
+  color: inherit !important;
+  border-color: inherit;
 }
-.item {
-  border-radius: 50%;
+.v-btn--icon.v-size--default {
   width: 24px;
   height: 24px;
-  margin: 8px;
-}
-.mtk-data-row {
-  .item {
-    transition: 0.2s all;
-    &.is-past,
-    &.today {
-      &:active {
-        transform: scale(0.98);
-        background: rgba(0, 0, 0, 0.24);
-      }
-    }
-  }
+  padding: 4px;
+  margin: 4px;
+  box-sizing: content-box;
 }
 </style>

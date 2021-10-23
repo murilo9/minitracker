@@ -1,9 +1,5 @@
 <template>
-  <span
-    class="item text-center d-inline-block"
-    :class="{ today: isToday }"
-    @click="toggleStatus"
-  >
+  <v-btn text icon :class="{ today: isToday }" @click="toggleStatus">
     <CompletedIcon v-if="habitStatus === 'DONE'" />
     <FailedIcon v-else-if="habitStatus === 'FAILED'" />
     <SkippedIcon v-else-if="habitStatus === 'SKIPPED'" />
@@ -13,7 +9,8 @@
       </template>
       <FailedIcon v-else />
     </template>
-  </span>
+  </v-btn>
+  <!--<span class="item text-center d-inline-block"> </span>-->
 </template>
 
 <script lang="ts">
