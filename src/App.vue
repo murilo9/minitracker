@@ -1,8 +1,19 @@
 <template>
   <div id="app">
     <router-view />
+    <AddHabitNoteDialog />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import AddHabitNoteDialog from "@/components/AddHabitNoteDialog.vue";
+export default Vue.extend({
+  components: {
+    AddHabitNoteDialog,
+  },
+});
+</script>
 
 <style lang="scss">
 @font-face {

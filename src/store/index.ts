@@ -19,6 +19,10 @@ const nextStatus = function (currentStatus: HabitStatus | null | undefined): Hab
 
 export default new Vuex.Store({
   state: {
+    showAddHabitNoteDialog: false,
+    addDetailForHabitName: '',
+    addDetailForHabitId: '',
+    addDetailForHabitDate: null,
     habits: []
   },
   mutations: {
@@ -56,6 +60,16 @@ export default new Vuex.Store({
       if (habitToDeleteIndex > -1) {
         state.habits.splice(habitToDeleteIndex, 1);
       }
+    },
+    openAddHabitNoteDialog(state: VuexState, payload: { habit: Habit, date: DateFormat }) {
+      state.showAddHabitNoteDialog = true;
+      state.addDetailForHabitId = payload.habit.id;
+      state.addDetailForHabitName = payload.habit.name;
+    },
+    closeAddHabitNoteDialog(state: VuexState) {
+      state.showAddHabitNoteDialog = false;
+      state.addDetailForHabitId = '';
+      state.addDetailForHabitName = '';
     }
   },
   actions: {

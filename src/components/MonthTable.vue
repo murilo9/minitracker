@@ -24,7 +24,7 @@
         :disabled="!(isPast(weekDay.data) || isToday(weekDay.data))"
         v-for="(weekDay, d) in week"
         :key="d"
-        @click="toggle(weekDay.data)"
+        @click="handleDayClick(weekDay.data)"
       >
         <div :style="{ color: dayColor(weekDay.data) }">
           {{ weekDay.data }}
@@ -48,6 +48,8 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
+      clickTimeout: 0,
+      addNoteMode: false,
       weekDays: ["S", "M", "T", "W", "T", "F", "S"],
       monthWeeks: [
         [{}, {}, {}, {}, {}, {}, {}],
@@ -86,6 +88,7 @@ export default Vue.extend({
       this.$forceUpdate();
     },
     notesForDay(day: number) {
+      day === day;
       return false;
       // TODO: find and return habit notes for specified day
     },
@@ -97,7 +100,22 @@ export default Vue.extend({
       const todayMonthDay = new Date().getDate();
       return day < todayMonthDay;
     },
+    handleDayClick(monthDay: number) {
+      if (this.addNoteMode) {
+        clearTimeout(this.clickTimeout);
+        this.addNoteMode = false;
+        const date = [this.year, this.month, monthDay];
+        this.$store.commit("openAddHabitNoteDialog", {
+          habit: this.habit,
+          date,
+        });
+      } else {
+        this.clickTimeout = setTimeout(() => this.toggle(monthDay), 200);
+        this.addNoteMode = true;
+      }
+    },
     toggle(monthDay: number) {
+      this.$data.addNoteMode = false;
       const todayMonthDay = new Date().getDate();
       if (monthDay <= todayMonthDay) {
         const { month, year } = this.$props;
