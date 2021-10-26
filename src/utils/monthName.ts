@@ -3,5 +3,5 @@ const months = ["January", "February", "March", "April", "May", "June",
 ];
 
 export default function monthName(monthIndex: number): string {
-  return months[monthIndex];
+  return months[monthIndex] || '';
 }
