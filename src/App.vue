@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <router-view />
-    <AddHabitNoteDialog />
+    <HabitNoteDialog />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import AddHabitNoteDialog from "@/components/AddHabitNoteDialog.vue";
+import HabitNoteDialog from "@/components/HabitNoteDialog.vue";
 export default Vue.extend({
   components: {
-    AddHabitNoteDialog,
+    HabitNoteDialog,
   },
 });
 </script>

@@ -1,6 +1,8 @@
+import DateFormat from "./DateFormat"
+
 type HabitNote = {
   text: string,
-  date: Date
+  date: DateFormat
 }
 
 export default HabitNote

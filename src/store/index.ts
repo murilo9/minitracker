@@ -1,8 +1,11 @@
 import DateFormat from '@/types/DateFormat';
 import Habit from '@/types/Habit';
+import HabitNote from '@/types/HabitNote';
 import HabitStatus from '@/types/HabitStatus';
 import VuexState from '@/types/VuexState';
+import compareDateFormats from '@/utils/compareDateFormats';
 import getHabitDataByDateFormat from '@/utils/getHabitDataByDateFormat';
+import getHabitNoteByDateFormat from '@/utils/getHabitNoteByDateFormat';
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -65,11 +68,31 @@ export default new Vuex.Store({
       state.showAddHabitNoteDialog = true;
       state.addDetailForHabitId = payload.habit.id;
       state.addDetailForHabitName = payload.habit.name;
+      state.addDetailForHabitDate = payload.date;
     },
     closeAddHabitNoteDialog(state: VuexState) {
       state.showAddHabitNoteDialog = false;
       state.addDetailForHabitId = '';
       state.addDetailForHabitName = '';
+    },
+    saveHabitNote(state: VuexState, payload: { habitId: string, date: DateFormat, text: string }) {
+      const { habitId, date, text } = payload;
+      const habit = state.habits.find((habit: Habit) => habit.id === habitId)
+      if (habit) {
+        const existingNoteIndex = habit.notes.findIndex((habitNote: HabitNote) => compareDateFormats(habitNote.date, date))
+        // If there's already a note for this date
+        if (existingNoteIndex >= 0) {
+          // Switch the existing note by the updated one
+          const updatedNote = { text, date }
+          habit.notes.splice(existingNoteIndex, 1, updatedNote)
+        }
+        // If there's no note for this date
+        else {
+          // Append a new one
+          const newNote = { text, date }
+          habit.notes.push(newNote)
+        }
+      }
     }
   },
   actions: {
