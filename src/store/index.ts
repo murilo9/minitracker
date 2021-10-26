@@ -5,7 +5,6 @@ import HabitStatus from '@/types/HabitStatus';
 import VuexState from '@/types/VuexState';
 import compareDateFormats from '@/utils/compareDateFormats';
 import getHabitDataByDateFormat from '@/utils/getHabitDataByDateFormat';
-import getHabitNoteByDateFormat from '@/utils/getHabitNoteByDateFormat';
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -25,7 +24,7 @@ export default new Vuex.Store({
     showAddHabitNoteDialog: false,
     addDetailForHabitName: '',
     addDetailForHabitId: '',
-    addDetailForHabitDate: null,
+    addDetailForHabitDate: [],
     habits: []
   },
   mutations: {
