@@ -12,8 +12,9 @@
       <v-divider></v-divider>
 
       <v-card-actions>
-        <v-spacer></v-spacer>
+        
         <v-btn color="seconday" text @click="closeModal"> Cancel </v-btn>
+        <v-btn color="error" text @click="deleteNote" v-if="noteExists"> Delete </v-btn>
         <v-btn color="primary" text @click="saveNote"> Save </v-btn>
       </v-card-actions>
     </v-card>
@@ -53,6 +54,7 @@ export default Vue.extend({
   data() {
     return {
       noteInput: "",
+      noteExists: false
     };
   },
   methods: {
@@ -63,6 +65,7 @@ export default Vue.extend({
       if (habit) {
         const habitNote = getHabitNoteByDateFormat(habit, this.noteDate);
         this.$data.noteInput = habitNote?.text;
+        this.noteExists = !!habitNote;
       }
     },
     saveNote() {
@@ -75,7 +78,13 @@ export default Vue.extend({
     closeModal() {
       this.showAddHabitNoteDialog = false;
       this.$data.noteInput = "";
+      this.noteExists = false;
     },
+    deleteNote(){
+      const habitId = this.habitId;
+      const date = this.noteDate;
+      this.$store.commit("deleteHabitNote", { habitId, date });
+    }
   },
   watch: {
     showAddHabitNoteDialog(open: boolean) {

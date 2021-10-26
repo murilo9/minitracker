@@ -92,6 +92,16 @@ export default new Vuex.Store({
           habit.notes.push(newNote)
         }
       }
+    },
+    deleteHabitNote(state: VuexState, payload: { habitId: string, date: DateFormat}){
+      const { habitId, date } = payload;
+      const habit = state.habits.find((habit: Habit) => habit.id === habitId);
+      if(habit){
+        const existingNoteIndex = habit.notes.findIndex((habitNote: HabitNote) => compareDateFormats(habitNote.date, date));
+        if(existingNoteIndex > -1){
+          habit.notes.splice(existingNoteIndex, 1);
+        }
+      }
     }
   },
   actions: {
