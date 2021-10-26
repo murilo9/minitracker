@@ -21,6 +21,7 @@
           'is-past': isPast(weekDay.data),
           'date-item': true,
         }"
+        :outlined="isToday(weekDay.data)"
         :disabled="!(isPast(weekDay.data) || isToday(weekDay.data))"
         v-for="(weekDay, d) in week"
         :key="d"

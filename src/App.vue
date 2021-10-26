@@ -83,7 +83,8 @@ ul {
 
 .date-item {
   /* Disabled v-btn for week day titles must have normal (not blured) font color */
-  &.theme--light.v-btn.v-btn--disabled {
+  &.theme--light.v-btn.v-btn--disabled,
+  &.theme--light.v-btn.v-btn--outlined.v-btn--text {
     color: inherit !important;
     border-color: inherit !important;
   }

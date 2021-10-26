@@ -10,7 +10,7 @@
     <FailedIcon v-else-if="habitStatus === 'FAILED'" />
     <SkippedIcon v-else-if="habitStatus === 'SKIPPED'" />
     <template v-else>
-      <template v-if="isToday">
+      <template v-if="isToday || !isPast">
         {{ date[2] }}
       </template>
       <FailedIcon v-else />

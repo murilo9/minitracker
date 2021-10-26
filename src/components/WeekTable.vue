@@ -22,13 +22,6 @@
           :habit="habit"
           :date="[currentYear, currentMonth, weekDay.label]"
         />
-        <!--<span
-          v-else
-          :key="w"
-          class="item text-center d-inline-flex align-center justify-center"
-        >
-          {{ weekDay.label }}
-        </span>-->
       </template>
     </div>
   </div>
