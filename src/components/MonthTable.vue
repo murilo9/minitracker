@@ -45,6 +45,7 @@ import Habit from "@/types/Habit";
 import HabitStatus from "@/types/HabitStatus";
 import getDateFormat from "@/utils/getDateFormat";
 import getHabitDataByDate from "@/utils/getHabitDataByDate";
+import getHabitNoteByDateFormat from "@/utils/getHabitNoteByDateFormat";
 import Vue from "vue";
 export default Vue.extend({
   data() {
@@ -88,10 +89,9 @@ export default Vue.extend({
       } while (baseDate.getDate() > 1);
       this.$forceUpdate();
     },
-    notesForDay(day: number) {
-      day === day;
-      return false;
-      // TODO: find and return habit notes for specified day
+    notesForDay(monthDay: number) {
+      const dateFormat = [this.year, this.month, monthDay];
+      return getHabitNoteByDateFormat(this.habit, dateFormat);
     },
     isToday(day: number) {
       const today = new Date();
@@ -198,7 +198,7 @@ export default Vue.extend({
   height: 6px !important;
   width: 100%;
   position: absolute;
-  bottom: -10px;
+  bottom: -6px;
 }
 .item-note .v-icon {
   font-size: 20px;
