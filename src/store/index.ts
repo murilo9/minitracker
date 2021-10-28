@@ -7,6 +7,13 @@ import compareDateFormats from '@/utils/compareDateFormats';
 import getHabitDataByDateFormat from '@/utils/getHabitDataByDateFormat';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VuexPersistence, { AsyncStorage } from 'vuex-persist';
+import localForage from 'localforage';
+
+const vuexLocal = new VuexPersistence({
+  storage: localForage as AsyncStorage,
+  asyncStorage: true
+});
 
 Vue.use(Vuex);
 
@@ -93,4 +100,5 @@ export default new Vuex.Store({
   },
   modules: {
   },
+  plugins: [vuexLocal.plugin]
 });
