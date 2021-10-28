@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="showAddHabitNoteDialog" width="300" persistent>
+  <v-dialog v-model="show" width="300" persistent>
     <v-card color="#9BCFD1">
       <v-card-title class="text-h5 lighten-2">
         {{ noteLabel }}
@@ -27,26 +27,18 @@ import getHabitNoteByDateFormat from "@/utils/getHabitNoteByDateFormat";
 import Vue from "vue";
 import { mapState } from "vuex";
 import Habit from "@/types/Habit";
+import DateFormat from "@/types/DateFormat";
 export default Vue.extend({
+  props: {
+    show: Boolean as () => boolean,
+    habitName: String as () => string,
+    habitId: String as () => string,
+    habitDate: Array as () => DateFormat
+  },
   computed: {
-    ...mapState({
-      habitName: "addDetailForHabitName",
-      habitId: "addDetailForHabitId",
-      noteDate: "addDetailForHabitDate",
-    }),
-    showAddHabitNoteDialog: {
-      get() {
-        return this.$store.state.showAddHabitNoteDialog;
-      },
-      set(val: boolean) {
-        if (val === false) {
-          this.$store.commit("closeAddHabitNoteDialog", val);
-        }
-      },
-    },
     noteLabel() {
-      const monthNumber = this.noteDate[1];
-      const day = this.noteDate[2];
+      const monthNumber = this.habitDate[1];
+      const day = this.habitDate[2];
       const month = monthName(monthNumber).substring(0, 3);
       return `${month} ${day} - ${this.habitName.toUpperCase()}`;
     },
@@ -63,32 +55,31 @@ export default Vue.extend({
         (habit: Habit) => habit.id === this.habitId
       );
       if (habit) {
-        const habitNote = getHabitNoteByDateFormat(habit, this.noteDate);
+        const habitNote = getHabitNoteByDateFormat(habit, this.habitDate);
         this.$data.noteInput = habitNote?.text;
         this.noteExists = !!habitNote;
       }
     },
     saveNote() {
       const habitId = this.habitId;
-      const date = this.noteDate;
+      const date = this.habitDate;
       const text = this.$data.noteInput;
       this.$store.commit("saveHabitNote", { habitId, date, text });
       this.closeModal();
     },
     closeModal() {
-      this.showAddHabitNoteDialog = false;
-      this.$data.noteInput = "";
-      this.noteExists = false;
+      this.$data.noteInput = '';
+      this.$emit('close');
     },
     deleteNote(){
       const habitId = this.habitId;
-      const date = this.noteDate;
+      const date = this.habitDate;
       this.$store.commit("deleteHabitNote", { habitId, date });
     }
   },
   watch: {
-    showAddHabitNoteDialog(open: boolean) {
-      if (open) {
+    show(val: boolean) {
+      if (val) {
         this.loadExistingNote();
       }
     },

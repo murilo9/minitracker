@@ -37,6 +37,13 @@
         </div>
       </v-btn>
     </div>
+    <HabitNoteDialog 
+      @close="showAddHabitNoteDialog = false" 
+      :show="showAddHabitNoteDialog"
+      :habitName="addDetailForHabitName"
+      :habitId="addDetailForHabitId"
+      :habitDate="addDetailForHabitDate"
+    />
   </div>
 </template>
 
@@ -46,12 +53,18 @@ import HabitStatus from "@/types/HabitStatus";
 import getDateFormat from "@/utils/getDateFormat";
 import getHabitDataByDate from "@/utils/getHabitDataByDate";
 import getHabitNoteByDateFormat from "@/utils/getHabitNoteByDateFormat";
+import HabitNoteDialog from "@/components/HabitNoteDialog.vue";
 import Vue from "vue";
+import DateFormat from "@/types/DateFormat";
 export default Vue.extend({
   data() {
     return {
       clickTimeout: 0,
       addNoteMode: false,
+      showAddHabitNoteDialog: false,
+      addDetailForHabitName: '',
+      addDetailForHabitId: '',
+      addDetailForHabitDate: [] as DateFormat,
       weekDays: ["S", "M", "T", "W", "T", "F", "S"],
       monthWeeks: [
         [{}, {}, {}, {}, {}, {}, {}],
@@ -62,6 +75,9 @@ export default Vue.extend({
         [{}, {}, {}, {}, {}, {}, {}],
       ] as Array<Array<{ data: number }>>,
     };
+  },
+  components: {
+    HabitNoteDialog,
   },
   props: {
     month: Number as () => number,
@@ -106,10 +122,10 @@ export default Vue.extend({
         clearTimeout(this.clickTimeout);
         this.addNoteMode = false;
         const date = [this.year, this.month, monthDay];
-        this.$store.commit("openAddHabitNoteDialog", {
-          habit: this.habit,
-          date,
-        });
+        this.showAddHabitNoteDialog = true;
+        this.addDetailForHabitName = this.habit.name;
+        this.addDetailForHabitId = this.habit.id
+        this.addDetailForHabitDate = date;
       } else {
         this.clickTimeout = setTimeout(() => this.toggle(monthDay), 200);
         this.addNoteMode = true;
