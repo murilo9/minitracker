@@ -4,20 +4,31 @@
       <v-card-title class="text-h5 lighten-2">
         {{ noteLabel }}
       </v-card-title>
+      
+      <template v-if="showDeleteHabitConfirmationMessage">
+        <v-card-text>
+          Are you sure you want to clear notes for this date? That cannot be undone.
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn text @click="showDeleteHabitConfirmationMessage = false">Cancel</v-btn>
+          <v-btn color="error" text @click="deleteNote"> Clear Notes </v-btn>
+        </v-card-actions>
+      </template>
 
-      <v-card-text>
-        <v-textarea placeholder="Add notes" v-model="noteInput"></v-textarea>
-      </v-card-text>
-
-      <v-divider></v-divider>
-
-      <v-card-actions>
-        
-        <v-btn color="seconday" text @click="closeModal"> Cancel </v-btn>
-        <v-btn color="error" text @click="deleteNote" v-if="noteExists"> Clear </v-btn>
-        <v-btn color="primary" text @click="saveNote"> Save </v-btn>
-      </v-card-actions>
+      <template v-else>
+        <v-card-text>
+          <v-textarea placeholder="Add notes" v-model="noteInput"></v-textarea>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn text @click="closeModal"> Cancel </v-btn>
+          <v-btn color="error" text @click="showDeleteHabitConfirmationMessage = true" v-if="noteExists"> Clear </v-btn>
+          <v-btn color="primary" text @click="saveNote"> Save </v-btn>
+        </v-card-actions>
+      </template>
     </v-card>
+
   </v-dialog>
 </template>
 
@@ -25,7 +36,6 @@
 import monthName from "@/utils/monthName";
 import getHabitNoteByDateFormat from "@/utils/getHabitNoteByDateFormat";
 import Vue from "vue";
-import { mapState } from "vuex";
 import Habit from "@/types/Habit";
 import DateFormat from "@/types/DateFormat";
 export default Vue.extend({
@@ -46,7 +56,8 @@ export default Vue.extend({
   data() {
     return {
       noteInput: "",
-      noteExists: false
+      noteExists: false,
+      showDeleteHabitConfirmationMessage: false
     };
   },
   methods: {
@@ -69,6 +80,7 @@ export default Vue.extend({
     },
     closeModal() {
       this.$data.noteInput = '';
+      this.$data.showDeleteHabitConfirmationMessage = false;
       this.$emit('close');
     },
     deleteNote(){
