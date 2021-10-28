@@ -14,7 +14,7 @@
       <v-card-actions>
         
         <v-btn color="seconday" text @click="closeModal"> Cancel </v-btn>
-        <v-btn color="error" text @click="deleteNote" v-if="noteExists"> Delete </v-btn>
+        <v-btn color="error" text @click="deleteNote" v-if="noteExists"> Clear </v-btn>
         <v-btn color="primary" text @click="saveNote"> Save </v-btn>
       </v-card-actions>
     </v-card>
@@ -75,6 +75,7 @@ export default Vue.extend({
       const habitId = this.habitId;
       const date = this.habitDate;
       this.$store.commit("deleteHabitNote", { habitId, date });
+      this.closeModal();
     }
   },
   watch: {

@@ -182,6 +182,11 @@ export default Vue.extend({
   mounted() {
     this.fillMonth();
   },
+  watch: {
+    showAddHabitNoteDialog(){
+      this.$forceUpdate();
+    }
+  }
 });
 </script>
 
