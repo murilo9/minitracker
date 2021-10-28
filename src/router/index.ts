@@ -30,7 +30,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  await store.restored;
+  await (store as {[key: string]: any}).restored ;
   next();
 })
 
