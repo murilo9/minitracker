@@ -32,7 +32,7 @@ import CompletedIcon from "@/components/CompletedIcon.vue";
 import FailedIcon from "@/components/FailedIcon.vue";
 import SkippedIcon from "@/components/SkippedIcon.vue";
 import WeekTable from "@/components/WeekTable.vue";
-import getHabitDataByDate from "@/utils/getHabitDataByDate";
+import getHabitAcomplishmentByDate from "@/utils/getHabitAcomplishmentByDate";
 import Vue from "vue";
 import getDateFormat from "@/utils/getDateFormat";
 export default Vue.extend({
@@ -45,8 +45,8 @@ export default Vue.extend({
   computed: {
     habitStatus() {
       const today = new Date();
-      const habitData = getHabitDataByDate(today, this.habit);
-      return habitData?.status;
+      const habitAcomplishment = getHabitAcomplishmentByDate(today, this.habit);
+      return habitAcomplishment?.status;
     },
   },
   data() {

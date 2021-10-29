@@ -1,9 +1,9 @@
 import DateFormat from "./DateFormat";
 import HabitStatus from "./HabitStatus";
 
-type HabitData = {
+type HabitAcomplishment = {
   status: HabitStatus | null | undefined,
   date: DateFormat
 }
 
-export default HabitData;
+export default HabitAcomplishment;

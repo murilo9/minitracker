@@ -37,8 +37,8 @@
         </div>
       </v-btn>
     </div>
-    <HabitNoteDialog 
-      @close="showAddHabitNoteDialog = false" 
+    <HabitNoteDialog
+      @close="showAddHabitNoteDialog = false"
       :show="showAddHabitNoteDialog"
       :habitName="addDetailForHabitName"
       :habitId="addDetailForHabitId"
@@ -51,7 +51,7 @@
 import Habit from "@/types/Habit";
 import HabitStatus from "@/types/HabitStatus";
 import getDateFormat from "@/utils/getDateFormat";
-import getHabitDataByDate from "@/utils/getHabitDataByDate";
+import getHabitAcomplishmentByDate from "@/utils/getHabitAcomplishmentByDate";
 import getHabitNoteByDateFormat from "@/utils/getHabitNoteByDateFormat";
 import HabitNoteDialog from "@/components/HabitNoteDialog.vue";
 import Vue from "vue";
@@ -62,8 +62,8 @@ export default Vue.extend({
       clickTimeout: 0,
       addNoteMode: false,
       showAddHabitNoteDialog: false,
-      addDetailForHabitName: '',
-      addDetailForHabitId: '',
+      addDetailForHabitName: "",
+      addDetailForHabitId: "",
       addDetailForHabitDate: [] as DateFormat,
       weekDays: ["S", "M", "T", "W", "T", "F", "S"],
       monthWeeks: [
@@ -124,7 +124,7 @@ export default Vue.extend({
         const date = [this.year, this.month, monthDay];
         this.showAddHabitNoteDialog = true;
         this.addDetailForHabitName = this.habit.name;
-        this.addDetailForHabitId = this.habit.id
+        this.addDetailForHabitId = this.habit.id;
         this.addDetailForHabitDate = date;
       } else {
         this.clickTimeout = setTimeout(() => this.toggle(monthDay), 200);
@@ -161,9 +161,9 @@ export default Vue.extend({
       date.setDate(monthDay);
       date.setMonth(month);
       date.setFullYear(year);
-      // Get habit data and status
-      const habitData = getHabitDataByDate(date, this.habit);
-      const dayStatus = habitData?.status;
+      // Get habit acomplishments and status
+      const habitAcomplishment = getHabitAcomplishmentByDate(date, this.habit);
+      const dayStatus = habitAcomplishment?.status;
       const todayDay = new Date().getDate();
       const isPast = monthDay < todayDay;
       // Get color
@@ -183,10 +183,10 @@ export default Vue.extend({
     this.fillMonth();
   },
   watch: {
-    showAddHabitNoteDialog(){
+    showAddHabitNoteDialog() {
       this.$forceUpdate();
-    }
-  }
+    },
+  },
 });
 </script>
 

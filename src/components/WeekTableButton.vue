@@ -28,7 +28,7 @@ import Habit from "@/types/Habit";
 import DateFormat from "@/types/DateFormat";
 import getDateFormat from "@/utils/getDateFormat";
 import compareDateFormats from "@/utils/compareDateFormats";
-import getHabitDataByDateFormat from "@/utils/getHabitDataByDateFormat";
+import getHabitAcomplishmentByDateFormat from "@/utils/getHabitAcomplishmentByDateFormat";
 export default Vue.extend({
   components: {
     CompletedIcon,
@@ -61,8 +61,8 @@ export default Vue.extend({
     habitStatus() {
       const date = this.date as DateFormat;
       const habit = this.habit as Habit;
-      const habitData = getHabitDataByDateFormat(date, habit);
-      return habitData?.status;
+      const habitAcomplishment = getHabitAcomplishmentByDateFormat(date, habit);
+      return habitAcomplishment?.status;
     },
   },
 });

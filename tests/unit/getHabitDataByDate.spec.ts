@@ -1,7 +1,6 @@
 import Habit from "@/types/Habit"
 import HabitStatus from "@/types/HabitStatus"
-import getDateFormat from "@/utils/getDateFormat"
-import getHabitDataByDate from "@/utils/getHabitDataByDate"
+import getHabitAcomplishmentByDate from "@/utils/getHabitAcomplishmentByDate"
 
 describe('Function: getHabitDataByDate', () => {
   it('should return the habit data for the specified date', () => {
@@ -9,7 +8,7 @@ describe('Function: getHabitDataByDate', () => {
       id: '',
       name: 'Ride bike',
       notes: [],
-      data: [
+      acomplishments: [
         {
           status: HabitStatus.DONE,
           date: [2021, 8, 21]
@@ -25,8 +24,8 @@ describe('Function: getHabitDataByDate', () => {
       ]
     };
     const dateToFind = new Date('2021-8-19');
-    const habitDataToFind = habit.data[1];
-    const habitDataFound = getHabitDataByDate(dateToFind, habit);
-    expect(habitDataFound).toEqual(habitDataToFind);
+    const habitAcomplishmentToFind = habit.acomplishments[1];
+    const habitAcomplishmentFound = getHabitAcomplishmentByDate(dateToFind, habit);
+    expect(habitAcomplishmentFound).toEqual(habitAcomplishmentToFind);
   })
 })

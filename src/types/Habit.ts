@@ -1,10 +1,10 @@
 import HabitNote from "./HabitNote";
-import HabitData from "./HabitData";
+import HabitData from "./HabitAcomplishment";
 
 type Habit = {
   id: string,
   name: string,
-  data: Array<HabitData>
+  acomplishments: Array<HabitData>,
   notes: Array<HabitNote>
 }
 

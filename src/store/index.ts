@@ -4,7 +4,7 @@ import HabitNote from '@/types/HabitNote';
 import HabitStatus from '@/types/HabitStatus';
 import VuexState from '@/types/VuexState';
 import compareDateFormats from '@/utils/compareDateFormats';
-import getHabitDataByDateFormat from '@/utils/getHabitDataByDateFormat';
+import getHabitAcomplishmentByDateFormat from '@/utils/getHabitAcomplishmentByDateFormat';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersistence, { AsyncStorage } from 'vuex-persist';
@@ -40,22 +40,22 @@ export default new Vuex.Store({
       const habitToToggle = state.habits.find(habit => habit.id === habitId) as Habit
       // If habit exists
       if (habitToToggle) {
-        let currentHabitData = getHabitDataByDateFormat(date, habitToToggle)
-        // If there's no habit data for the specified date, create it
-        if (!currentHabitData) {
-          currentHabitData = {
+        let currentHabitAcomplishment = getHabitAcomplishmentByDateFormat(date, habitToToggle)
+        // If there's no habit acomplishment for the specified date, create it
+        if (!currentHabitAcomplishment) {
+          currentHabitAcomplishment = {
             status: null,
             date: date
           }
-          habitToToggle.data.push(currentHabitData)
+          habitToToggle.acomplishments.push(currentHabitAcomplishment)
         }
-        // If there's habit data for the specified date, update it
+        // If there's habit acomplishment for the specified date, update it
         else {
-          const currentStatus = currentHabitData.status
-          currentHabitData.status = nextStatus(currentStatus)
+          const currentStatus = currentHabitAcomplishment.status
+          currentHabitAcomplishment.status = nextStatus(currentStatus)
         }
-        // Finally, toggles status for the habit data
-        currentHabitData.status = nextStatus(currentHabitData.status)
+        // Finally, toggles status for the habit acomplishment
+        currentHabitAcomplishment.status = nextStatus(currentHabitAcomplishment.status)
       }
     },
     deleteHabit(state: VuexState, habitId: string) {
@@ -85,12 +85,12 @@ export default new Vuex.Store({
         }
       }
     },
-    deleteHabitNote(state: VuexState, payload: { habitId: string, date: DateFormat}){
+    deleteHabitNote(state: VuexState, payload: { habitId: string, date: DateFormat }) {
       const { habitId, date } = payload;
       const habit = state.habits.find((habit: Habit) => habit.id === habitId);
-      if(habit){
+      if (habit) {
         const existingNoteIndex = habit.notes.findIndex((habitNote: HabitNote) => compareDateFormats(habitNote.date, date));
-        if(existingNoteIndex > -1){
+        if (existingNoteIndex > -1) {
           habit.notes.splice(existingNoteIndex, 1);
         }
       }
