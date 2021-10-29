@@ -1,5 +1,6 @@
 <template>
   <v-app v-if="!loading">
+    <!-- If there's no habit -->
     <v-container v-if="!habit" class="text-center fill-height justify-center">
       <div>
         <h1 class="text-h4 mb-8">Oops...</h1>
@@ -8,6 +9,8 @@
         </h2>
       </div>
     </v-container>
+
+    <!-- If the habit exists -->
     <v-main v-else class="pt-0 px-8">
       <h1 class="mb-2 mt-7 habit-title">{{ habit.name.toUpperCase() }}</h1>
       <v-divider></v-divider>
@@ -39,6 +42,8 @@
         Go Back
       </v-btn>
     </v-footer>
+
+    <!-- Delete habit dialog -->
     <v-dialog v-model="showDeleteHabitDialog" v-if="habit">
       <v-card color="#9BCFD1">
         <v-card-title class="text-h5 lighten-2">
