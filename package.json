@@ -7,11 +7,13 @@
     "name": "Murilo Henrique Matias",
     "email": "murilohenriquematias@gmail.com"
   },
+  "homepage": "https://github.com/murilo9/minitracker",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js --branch gh-pages"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -46,6 +48,7 @@
     "sass-loader": "^10.0.0",
     "typescript": "~4.1.5",
     "vue-cli-plugin-vuetify": "~2.4.3",
+    "vue-gh-pages": "^1.19.1",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"
   },
