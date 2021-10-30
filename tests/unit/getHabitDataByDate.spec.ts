@@ -8,6 +8,7 @@ describe('Function: getHabitDataByDate', () => {
       id: '',
       name: 'Ride bike',
       notes: [],
+      repeatsOn: [],
       acomplishments: [
         {
           status: HabitStatus.DONE,

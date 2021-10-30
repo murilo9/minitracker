@@ -9,10 +9,11 @@ describe('Function: getHabitAcomplishmentByDateFormat', () => {
       id: '',
       name: 'Ride bike',
       notes: [],
+      repeatsOn: [],
       acomplishments: [
         {
           status: HabitStatus.DONE,
-          date: [2021, 11, 5]
+          date: [2021, 11, 5],
         },
         {
           status: HabitStatus.DONE,
