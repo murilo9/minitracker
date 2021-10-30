@@ -5,7 +5,8 @@ type Habit = {
   id: string,
   name: string,
   acomplishments: Array<HabitData>,
-  notes: Array<HabitNote>
+  notes: Array<HabitNote>,
+  repeatsOn: Array<boolean>
 }
 
 export default Habit;

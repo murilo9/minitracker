@@ -13,10 +13,12 @@
       <template v-if="isToday || !isPast">
         {{ date[2] }}
       </template>
-      <FailedIcon v-else />
+      <template v-else>
+        <FailedIcon v-if="weekDayRepeat(weekDay)" />
+        <SkippedIcon v-else />
+      </template>
     </template>
   </v-btn>
-  <!--<span class="item text-center d-inline-block"> </span>-->
 </template>
 
 <script lang="ts">
@@ -53,6 +55,9 @@ export default Vue.extend({
       const todayWeekDay = new Date().getDay();
       return todayWeekDay >= weekDay;
     },
+    weekDayRepeat(weekDay: number): boolean {
+      return this.habit.repeatsOn[weekDay];
+    },
   },
   computed: {
     isToday() {
@@ -63,6 +68,14 @@ export default Vue.extend({
       const habit = this.habit as Habit;
       const habitAcomplishment = getHabitAcomplishmentByDateFormat(date, habit);
       return habitAcomplishment?.status;
+    },
+    weekDay() {
+      const today = new Date();
+      // Date's month, day and year must be set this way to avoid timezone issues
+      today.setDate(this.date[2]);
+      today.setMonth(this.date[1] - 1);
+      today.setFullYear(this.date[0]);
+      return today.getDay();
     },
   },
 });

@@ -166,6 +166,8 @@ export default Vue.extend({
       const dayStatus = habitAcomplishment?.status;
       const todayDay = new Date().getDate();
       const isPast = monthDay < todayDay;
+      const weekDay = date.getDay();
+      const weekDayRepeat = this.habit.repeatsOn[weekDay];
       // Get color
       switch (dayStatus) {
         case HabitStatus.FAILED:
@@ -175,7 +177,11 @@ export default Vue.extend({
         case HabitStatus.SKIPPED:
           return colors.skipped;
         default:
-          return isPast ? colors.failed : "unset";
+          return isPast
+            ? weekDayRepeat
+              ? colors.failed
+              : colors.skipped
+            : "unset";
       }
     },
   },
