@@ -9,7 +9,7 @@
         v-for="(weekDay, w) in weekDays"
         :key="w"
       >
-        {{ weekDay }}
+        <b>{{ weekDay }}</b>
       </v-btn>
     </div>
     <div class="d-flex justify-center" v-for="(week, w) in monthWeeks" :key="w">
@@ -85,7 +85,19 @@ export default Vue.extend({
     habit: Object as () => Habit,
   },
   methods: {
+    resetMonthWeeks() {
+      this.$data.monthWeeks = [
+        [{}, {}, {}, {}, {}, {}, {}],
+        [{}, {}, {}, {}, {}, {}, {}],
+        [{}, {}, {}, {}, {}, {}, {}],
+        [{}, {}, {}, {}, {}, {}, {}],
+        [{}, {}, {}, {}, {}, {}, {}],
+        [{}, {}, {}, {}, {}, {}, {}],
+      ];
+    },
     fillMonth() {
+      // Reset monthWeeks data structureresetMonthWeeks
+      this.resetMonthWeeks();
       // Set base date for this month
       const baseDate = new Date();
       baseDate.setFullYear(this.year);
@@ -93,14 +105,17 @@ export default Vue.extend({
       baseDate.setDate(1);
       let weekIndex = 0;
       let lastWeekDay = 0;
+      // For each month week, fill its mont days
       do {
         const currentWeekDay = baseDate.getDay();
+        // If reached saturday
         if (lastWeekDay === 6) {
           weekIndex++;
         }
         lastWeekDay = currentWeekDay;
         const currentMonthDay = baseDate.getDate();
         this.monthWeeks[weekIndex][currentWeekDay].data = currentMonthDay;
+        // Set next month day
         baseDate.setDate(currentMonthDay + 1);
       } while (baseDate.getDate() > 1);
       this.$forceUpdate();
@@ -111,11 +126,20 @@ export default Vue.extend({
     },
     isToday(day: number) {
       const today = new Date();
-      return today.getDate() === day;
+      return (
+        today.getDate() === day &&
+        today.getMonth() === this.month &&
+        today.getFullYear() === this.year
+      );
     },
     isPast(day: number): boolean {
-      const todayMonthDay = new Date().getDate();
-      return day < todayMonthDay;
+      const today = new Date();
+      const selectedDate = new Date();
+      selectedDate.setHours(0, 0, 0, 0);
+      selectedDate.setFullYear(this.year);
+      selectedDate.setMonth(this.month);
+      selectedDate.setDate(day);
+      return selectedDate.getTime() < today.getTime();
     },
     handleDayClick(monthDay: number) {
       if (this.addNoteMode) {
@@ -158,14 +182,14 @@ export default Vue.extend({
       const { month, year } = this.$props;
       const date = new Date();
       // Date's month, day and year must be set this way to avoid timezone issues
+      date.setHours(0, 0, 0, 0);
       date.setDate(monthDay);
       date.setMonth(month);
       date.setFullYear(year);
       // Get habit acomplishments and status
       const habitAcomplishment = getHabitAcomplishmentByDate(date, this.habit);
       const dayStatus = habitAcomplishment?.status;
-      const todayDay = new Date().getDate();
-      const isPast = monthDay < todayDay;
+      const isPast = this.isPast(monthDay);
       const weekDay = date.getDay();
       const weekDayRepeat = this.habit.repeatsOn[weekDay];
       // Get color
@@ -191,6 +215,12 @@ export default Vue.extend({
   watch: {
     showAddHabitNoteDialog() {
       this.$forceUpdate();
+    },
+    month() {
+      this.fillMonth();
+    },
+    year() {
+      this.fillMonth();
     },
   },
 });
