@@ -14,18 +14,59 @@
     <v-main v-else class="pt-0 px-8">
       <h1 class="mb-2 mt-7 habit-title">{{ habit.name.toUpperCase() }}</h1>
       <v-divider></v-divider>
-      <h2 class="text-body-2 text-center mt-5">{{ selectedMonthName }} - {{ selectedYear }}</h2>
+
+      <!-- Mobile swap buttons -->
+      <v-container
+        fluid
+        class="
+          d-flex
+          justify-space-between justify-sm-center
+          align-center
+          pa-0
+          mt-5
+        "
+      >
+        <v-btn
+          icon
+          text
+          class="mtk-prev-button d-block d-sm-none"
+          @click="prevMonth"
+        >
+          <v-icon>mdi-chevron-up</v-icon>
+        </v-btn>
+        <span class="text-body-2 text-center">
+          {{ selectedMonthName }} - {{ selectedYear }}
+        </span>
+        <v-btn
+          icon
+          text
+          class="mtk-next-button d-block d-sm-none"
+          @click="nextMonth"
+        >
+          <v-icon>mdi-chevron-up</v-icon>
+        </v-btn>
+      </v-container>
       <v-container fluid class="d-flex justify-center align-center">
-        <v-btn icon text class="mtk-prev-button" @click="prevMonth">
+        <v-btn
+          icon
+          text
+          class="mtk-prev-button d-none d-sm-block"
+          @click="prevMonth"
+        >
           <v-icon>mdi-chevron-up</v-icon>
         </v-btn>
         <MonthTable
           :habit="habit"
           :month="selectedMonth"
           :year="selectedYear"
-          class="mt-4 mx-6"
+          class="mt-4 mx-0 mx-sm-4"
         />
-        <v-btn icon text class="mtk-next-button" @click="nextMonth">
+        <v-btn
+          icon
+          text
+          class="mtk-next-button d-none d-sm-block"
+          @click="nextMonth"
+        >
           <v-icon>mdi-chevron-up</v-icon>
         </v-btn>
       </v-container>
@@ -96,7 +137,7 @@ export default Vue.extend({
       habit: null,
       showDeleteHabitDialog: false,
       selectedMonth: new Date().getMonth(),
-      selectedYear: new Date().getFullYear()
+      selectedYear: new Date().getFullYear(),
     };
   },
   computed: {
@@ -104,7 +145,9 @@ export default Vue.extend({
       habits: "habits",
     }),
     selectedMonthName() {
-      return monthName(this.$data.selectedMonth as number).toUpperCase().substring(0, 3);
+      return monthName(this.$data.selectedMonth as number)
+        .toUpperCase()
+        .substring(0, 3);
     },
   },
   mounted() {
@@ -123,20 +166,20 @@ export default Vue.extend({
       this.$store.commit("deleteHabit", this.$data.habit.id);
       this.$router.push("/");
     },
-    prevMonth(){
+    prevMonth() {
       this.$data.selectedMonth -= 1;
-      if(this.$data.selectedMonth < 0){
+      if (this.$data.selectedMonth < 0) {
         this.$data.selectedMonth = 11;
         this.$data.selectedYear -= 1;
       }
     },
-    nextMonth(){
+    nextMonth() {
       this.$data.selectedMonth += 1;
-      if(this.$data.selectedMonth > 11){
+      if (this.$data.selectedMonth > 11) {
         this.$data.selectedMonth = 0;
         this.$data.selectedYear += 1;
       }
-    }
+    },
   },
 });
 </script>
