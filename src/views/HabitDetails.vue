@@ -14,15 +14,23 @@
     <v-main v-else class="pt-0 px-8">
       <h1 class="mb-2 mt-7 habit-title">{{ habit.name.toUpperCase() }}</h1>
       <v-divider></v-divider>
-      <h2 class="text-body-2 text-center mt-5">{{ currentMonthName }}</h2>
-      <MonthTable
-        :habit="habit"
-        :month="currentMonth"
-        :year="currentYear"
-        class="my-4"
-      />
+      <h2 class="text-body-2 text-center mt-5">{{ selectedMonthName }} - {{ selectedYear }}</h2>
+      <v-container fluid class="d-flex justify-center align-center">
+        <v-btn icon text class="mtk-prev-button" @click="prevMonth">
+          <v-icon>mdi-chevron-up</v-icon>
+        </v-btn>
+        <MonthTable
+          :habit="habit"
+          :month="selectedMonth"
+          :year="selectedYear"
+          class="mt-4 mx-6"
+        />
+        <v-btn icon text class="mtk-next-button" @click="nextMonth">
+          <v-icon>mdi-chevron-up</v-icon>
+        </v-btn>
+      </v-container>
       <v-divider></v-divider>
-      <HabitAcomplishment :month="currentMonth" :habit="habit" />
+      <HabitAcomplishment :month="selectedMonth" :habit="habit" />
     </v-main>
     <v-divider></v-divider>
     <v-footer>
@@ -87,20 +95,16 @@ export default Vue.extend({
       loading: true,
       habit: null,
       showDeleteHabitDialog: false,
+      selectedMonth: new Date().getMonth(),
+      selectedYear: new Date().getFullYear()
     };
   },
   computed: {
     ...mapState({
       habits: "habits",
     }),
-    currentMonth(): number {
-      return new Date().getMonth();
-    },
-    currentMonthName() {
-      return monthName(this.currentMonth as number).toUpperCase();
-    },
-    currentYear() {
-      return new Date().getFullYear();
+    selectedMonthName() {
+      return monthName(this.$data.selectedMonth as number).toUpperCase().substring(0, 3);
     },
   },
   mounted() {
@@ -119,6 +123,20 @@ export default Vue.extend({
       this.$store.commit("deleteHabit", this.$data.habit.id);
       this.$router.push("/");
     },
+    prevMonth(){
+      this.$data.selectedMonth -= 1;
+      if(this.$data.selectedMonth < 0){
+        this.$data.selectedMonth = 11;
+        this.$data.selectedYear -= 1;
+      }
+    },
+    nextMonth(){
+      this.$data.selectedMonth += 1;
+      if(this.$data.selectedMonth > 11){
+        this.$data.selectedMonth = 0;
+        this.$data.selectedYear += 1;
+      }
+    }
   },
 });
 </script>
@@ -131,5 +149,11 @@ export default Vue.extend({
 .v-toolbar__content {
   padding-left: 0;
   padding-right: 0;
+}
+.mtk-next-button .v-icon {
+  transform: rotate(90deg);
+}
+.mtk-prev-button .v-icon {
+  transform: rotate(270deg);
 }
 </style>
