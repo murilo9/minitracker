@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "48465a863cc394762724",
-    "url": "/minitracker/css/app.ede67176.css"
+    "revision": "2b18895aecb78f9395ba",
+    "url": "/minitracker/css/app.dab981af.css"
   },
   {
     "revision": "ad239eeaac03c5245003",
@@ -24,12 +24,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/minitracker/fonts/FiraSans-Regular.895f5b02.ttf"
   },
   {
-    "revision": "07113bd99f55ec81ff3fa1ee217297d7",
+    "revision": "28992fd21988bd1408d633f4ad5951d4",
     "url": "/minitracker/index.html"
   },
   {
-    "revision": "48465a863cc394762724",
-    "url": "/minitracker/js/app.e6039b49.js"
+    "revision": "2b18895aecb78f9395ba",
+    "url": "/minitracker/js/app.d560ce96.js"
   },
   {
     "revision": "ad239eeaac03c5245003",
