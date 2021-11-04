@@ -26,7 +26,16 @@ export default Vue.extend({
       monthDate.setMonth(this.month as number);
       monthDate.setDate(0);
       const totalDaysInMonth = monthDate.getDate();
-      return totalDaysInMonth;
+      let total = 0;
+      for(let day = 0; day <= totalDaysInMonth; day++){
+        monthDate.setDate(day);
+        const weekDay = monthDate.getDay();
+        const dayCounts = this.habit.repeatsOn[weekDay];
+        if(dayCounts){
+          total++;
+        }
+      }
+      return total;
     },
   },
 });
