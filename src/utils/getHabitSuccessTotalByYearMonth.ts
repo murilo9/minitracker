@@ -19,10 +19,8 @@ export default function getHabitSuccessTotalByYearMonth(month: number, year: num
     acomplshmentDate.setMonth(habitAcomplishmentMonth);
     acomplshmentDate.setDate(habitAcomplishmentDay)
     const acomplishmentWeekDay = acomplshmentDate.getDay();
-    const acomplishmentIsOnSunday = acomplishmentWeekDay === 0;
-    const acomplishmentIsOnSaturday = acomplishmentWeekDay === 6;
-    const discardBecauseIsWeekend = (acomplishmentIsOnSunday && !countSundays) || (acomplishmentIsOnSaturday && !countSaturdays);
-    return (belongThisMonth && belongThisYear && !discardBecauseIsWeekend && habitIsDone) ? acc + 1 : acc + 0;
+    const acomplishmentIsCounted = habit.repeatsOn[acomplishmentWeekDay];
+    return (belongThisMonth && belongThisYear && acomplishmentIsCounted && habitIsDone) ? acc + 1 : acc + 0;
   }, 0);
   return successCount;
 }
