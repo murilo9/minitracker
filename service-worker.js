@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/minitracker/precache-manifest.163506f987bb3f03a2ee3a99d29c6977.js"
+  "/minitracker/precache-manifest.da477b86b19231358478f26294e12c6f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "minitracker"});
