@@ -2,8 +2,8 @@ import Habit from "@/types/Habit"
 import HabitStatus from "@/types/HabitStatus"
 import getHabitAcomplishmentByDate from "@/utils/getHabitAcomplishmentByDate"
 
-describe('Function: getHabitDataByDate', () => {
-  it('should return the habit data for the specified date', () => {
+describe('Function: getHabitAcomplishmentByDate', () => {
+  it('should return the habit acomplishment for the specified date', () => {
     const habit: Habit = {
       id: '',
       name: 'Ride bike',
