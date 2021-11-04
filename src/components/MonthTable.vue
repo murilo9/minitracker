@@ -157,21 +157,18 @@ export default Vue.extend({
     },
     toggle(monthDay: number) {
       this.$data.addNoteMode = false;
-      const todayMonthDay = new Date().getDate();
-      if (monthDay <= todayMonthDay) {
-        const { month, year } = this.$props;
-        const date = new Date();
-        // Date's month, day and year must be set this way to avoid timezone issues
-        date.setDate(monthDay);
-        date.setMonth(month);
-        date.setFullYear(year);
-        const dateFormatted = getDateFormat(date);
-        this.$store.commit("toggleHabitStatus", {
-          habitId: this.habit.id,
-          date: dateFormatted,
-        });
-        this.$forceUpdate();
-      }
+      const { month, year } = this.$props;
+      const date = new Date();
+      // Date's month, day and year must be set this way to avoid timezone issues
+      date.setDate(monthDay);
+      date.setMonth(month);
+      date.setFullYear(year);
+      const dateFormatted = getDateFormat(date);
+      this.$store.commit("toggleHabitStatus", {
+        habitId: this.habit.id,
+        date: dateFormatted,
+      });
+      this.$forceUpdate();
     },
     dayColor(monthDay: number): string {
       const colors = {

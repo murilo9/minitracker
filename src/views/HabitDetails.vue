@@ -71,7 +71,11 @@
         </v-btn>
       </v-container>
       <v-divider></v-divider>
-      <HabitAcomplishment :month="selectedMonth" :habit="habit" />
+      <HabitAcomplishment
+        :month="selectedMonth"
+        :year="selectedYear"
+        :habit="habit"
+      />
     </v-main>
     <v-divider></v-divider>
     <v-footer>

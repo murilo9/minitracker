@@ -63,6 +63,7 @@ export default Vue.extend({
         habitId: this.habit.id,
         date: getDateFormat(new Date()),
       });
+      this.$forceUpdate();
     },
     openHabitDetails() {
       this.$router.push(`/details/${this.habit.id}`);
