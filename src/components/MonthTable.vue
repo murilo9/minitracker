@@ -96,13 +96,11 @@ export default Vue.extend({
       ];
     },
     fillMonth() {
-      // Reset monthWeeks data structureresetMonthWeeks
+      // Reset monthWeeks data structure
       this.resetMonthWeeks();
       // Set base date for this month
-      const baseDate = new Date();
-      baseDate.setFullYear(this.year);
-      baseDate.setMonth(this.month);
-      baseDate.setDate(1);
+      let baseDate = new Date(this.year, this.month, 1);
+      baseDate.setHours(0, 0, 0, 0);
       let weekIndex = 0;
       let lastWeekDay = 0;
       // For each month week, fill its mont days
@@ -116,7 +114,8 @@ export default Vue.extend({
         const currentMonthDay = baseDate.getDate();
         this.monthWeeks[weekIndex][currentWeekDay].data = currentMonthDay;
         // Set next month day
-        baseDate.setDate(currentMonthDay + 1);
+        baseDate = new Date(this.year, this.month, currentMonthDay + 1);
+        baseDate.setHours(0, 0, 0, 0);
       } while (baseDate.getDate() > 1);
       this.$forceUpdate();
     },
@@ -134,11 +133,8 @@ export default Vue.extend({
     },
     isPast(day: number): boolean {
       const today = new Date();
-      const selectedDate = new Date();
+      const selectedDate = new Date(this.year, this.month, day);
       selectedDate.setHours(0, 0, 0, 0);
-      selectedDate.setFullYear(this.year);
-      selectedDate.setMonth(this.month);
-      selectedDate.setDate(day);
       return selectedDate.getTime() < today.getTime();
     },
     handleDayClick(monthDay: number) {
@@ -158,11 +154,8 @@ export default Vue.extend({
     toggle(monthDay: number) {
       this.$data.addNoteMode = false;
       const { month, year } = this.$props;
-      const date = new Date();
-      // Date's month, day and year must be set this way to avoid timezone issues
-      date.setDate(monthDay);
-      date.setMonth(month);
-      date.setFullYear(year);
+      const date = new Date(year, month, monthDay);
+      date.setHours(0, 0, 0, 0);
       const dateFormatted = getDateFormat(date);
       this.$store.commit("toggleHabitStatus", {
         habitId: this.habit.id,
@@ -177,17 +170,14 @@ export default Vue.extend({
         skipped: "#61acae",
       };
       const { month, year } = this.$props;
-      const date = new Date();
-      // Date's month, day and year must be set this way to avoid timezone issues
+      let date = new Date(year, month, monthDay);
       date.setHours(0, 0, 0, 0);
-      date.setDate(monthDay);
-      date.setMonth(month);
-      date.setFullYear(year);
       // Get habit acomplishments and status
       const habitAcomplishment = getHabitAcomplishmentByDate(date, this.habit);
       const dayStatus = habitAcomplishment?.status;
       const isPast = this.isPast(monthDay);
       const weekDay = date.getDay();
+      console.log(`datefor month day ${monthDay} is ${date}`);
       const weekDayRepeat = this.habit.repeatsOn[weekDay];
       // Get color
       switch (dayStatus) {
