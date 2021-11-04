@@ -12,7 +12,7 @@ describe('Function: getDateFormat', () => {
     today = new Date()
     todayFormatted = getDateFormat(today)
     todayYear = today.getFullYear()
-    todayMonth = today.getMonth() + 1
+    todayMonth = today.getMonth()
     todayDay = today.getDate()
   })
 

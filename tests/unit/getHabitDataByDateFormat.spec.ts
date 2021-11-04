@@ -13,15 +13,15 @@ describe('Function: getHabitAcomplishmentByDateFormat', () => {
       acomplishments: [
         {
           status: HabitStatus.DONE,
-          date: [2021, 11, 5],
+          date: [2021, 10, 5],
         },
         {
           status: HabitStatus.DONE,
-          date: [2021, 11, 8]
+          date: [2021, 10, 8]
         },
         {
           status: HabitStatus.DONE,
-          date: [2021, 11, 16]
+          date: [2021, 10, 16]
         },
       ]
     };
