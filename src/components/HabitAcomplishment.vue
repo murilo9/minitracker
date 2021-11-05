@@ -27,11 +27,11 @@ export default Vue.extend({
       monthDate.setDate(0);
       const totalDaysInMonth = monthDate.getDate();
       let total = 0;
-      for(let day = 0; day <= totalDaysInMonth; day++){
+      for (let day = 0; day <= totalDaysInMonth; day++) {
         monthDate.setDate(day);
         const weekDay = monthDate.getDay();
-        const dayCounts = this.habit.repeatsOn[weekDay];
-        if(dayCounts){
+        const dayCounts = (this.habit as Habit).repeatsOn[weekDay];
+        if (dayCounts) {
           total++;
         }
       }
