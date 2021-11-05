@@ -8,6 +8,7 @@
         <ul class="mt-3 pl-0">
           <HabitItem v-for="habit in habits" :key="habit.id" :habit="habit" />
         </ul>
+        <v-btn @click="communicate">send</v-btn>
       </v-container>
     </v-main>
     <v-footer>
@@ -40,6 +41,13 @@ export default Vue.extend({
   methods: {
     openPage(page: string) {
       this.$router.push(page);
+    },
+    communicate(){
+      console.log('sending message to sw', navigator.serviceWorker)
+      navigator.serviceWorker.controller?.postMessage({
+        type: 'HABITS_UPDATED',
+        payload: this.habits
+      });
     }
   },
 });

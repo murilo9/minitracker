@@ -7,7 +7,13 @@
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+export default Vue.extend({
+  mounted(){
+    // Ask for notification permission
+    Notification.requestPermission().then(permission => null)
+    
+  }
+});
 </script>
 
 <style lang="scss">
