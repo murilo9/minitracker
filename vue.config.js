@@ -1,8 +1,8 @@
 module.exports = {
   pwa: {
+    workboxPluginMode: 'InjectManifest',
     workboxOptions: {
-      skipWaiting: true,
-      clientsClaim: true,
+      swSrc: 'src/service-worker.js'
     }
   },
   publicPath: process.env.NODE_ENV === 'production'
