@@ -1,4 +1,4 @@
-importScripts("/minitracker/precache-manifest.5e31de8a89bf2da31120cac69f4fef72.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/minitracker/precache-manifest.d6d508b3e9a7a51f7a52b261e868b34e.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts('https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js');
 
@@ -41,13 +41,11 @@ function hasUnmarkedHabits(habits) {
 }
 
 async function verifyTime() {
-  self.registration.showNotification("Test notification", {
-    body: 'This is the body'
-  })
   const todayNotificationSent = await localforage.getItem('todayNotificationSent');
   const hours = new Date().getHours();
-  // If it's 15:00 and today's notification was not sent yet
-  if (hours === 15 && !todayNotificationSent) {
+  // If it's 19:00 and today's notification was not sent yet
+  const NOTIFICATION_HOUR = 19;
+  if (hours >= NOTIFICATION_HOUR && !todayNotificationSent) {
     const habits = await localforage.getItem('habits') || [];
     const mustNotificate = hasUnmarkedHabits(habits);
     // If there are unmarked habits today
@@ -60,11 +58,12 @@ async function verifyTime() {
     }
   }
   // If it's a new day
-  else if (hours === 0) {
+  else if (hours < NOTIFICATION_HOUR) {
     // Set that today's notification was not sent yet
     await localforage.setItem('todayNotificationSent', false);
   }
   // Call this function again, 1 min later
+  setTimeout(verifyTime, 60000);
 }
 
 async function updateHabits(habits) {
@@ -81,7 +80,7 @@ self.addEventListener('message', event => {
 })
 
 self.addEventListener('install', () => {
-  setInterval(verifyTime, 60000);
+  verifyTime();
 })
 
 workbox.core.setCacheNameDetails({ prefix: "minitracker" });
