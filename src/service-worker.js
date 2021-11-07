@@ -42,7 +42,8 @@ async function verifyTime() {
   const todayNotificationSent = await localforage.getItem('todayNotificationSent');
   const hours = new Date().getHours();
   // If it's 19:00 and today's notification was not sent yet
-  if (hours === 19 && !todayNotificationSent) {
+  const NOTIFICATION_HOUR = 19;
+  if (hours >= NOTIFICATION_HOUR && !todayNotificationSent) {
     const habits = await localforage.getItem('habits') || [];
     const mustNotificate = hasUnmarkedHabits(habits);
     // If there are unmarked habits today
@@ -55,7 +56,7 @@ async function verifyTime() {
     }
   }
   // If it's a new day
-  else if (hours === 0) {
+  else if (hours < NOTIFICATION_HOUR) {
     // Set that today's notification was not sent yet
     await localforage.setItem('todayNotificationSent', false);
   }
