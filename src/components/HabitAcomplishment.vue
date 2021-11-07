@@ -34,7 +34,6 @@ export default Vue.extend({
         monthDate.setDate(day);
         const weekDay = monthDate.getDay();
         const dayCounts = (this.habit as Habit).repeatsOn[weekDay];
-        console.log(monthDate, weekDay);
         if (dayCounts) {
           total++;
         }

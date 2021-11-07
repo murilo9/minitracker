@@ -41,13 +41,6 @@ export default Vue.extend({
     openPage(page: string) {
       this.$router.push(page);
     },
-    communicate() {
-      console.log("sending message to sw", navigator.serviceWorker);
-      navigator.serviceWorker.controller?.postMessage({
-        type: "HABITS_UPDATED",
-        payload: this.habits,
-      });
-    },
   },
 });
 </script>
