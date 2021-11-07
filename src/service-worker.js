@@ -1,28 +1,83 @@
-let getVersionPort;
-let habits = [];  // Unfortunately this is not persistent, yet
+importScripts('https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js');
 
-function onNotificationTime(){
-  console.log('onNotificationTime', habits)
-  setTimeout(onNotificationTime, 15000)
+localforage.config({
+  name: 'minitracker',
+  version: 1.0,
+  storeName: 'store'
+});
+
+function compareDateFormats(date1, date2) {
+  return date1[0] === date2[0] && date1[1] === date2[1] && date1[2] === date2[2]
 }
 
-function updateHabits(habits){
-  console.log('onHabitsUpdated', habits)
-  this.habits = habits;
+function getDateFormat(date) {
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  const day = date.getDate()
+  return [year, month, day]
+}
+
+function getHabitAcomplishmentByDate(dateToFind, habit) {
+  const habitAcomplishment = habit.acomplishments.find(acomplishment => compareDateFormats(getDateFormat(dateToFind), acomplishment.date))
+  return habitAcomplishment || null;
+}
+
+function hasUnmarkedHabits(habits) {
+  let unmarkedHabit = false;
+  const today = new Date();
+  const todayWeekDay = today.getDay();
+  habits.forEach(habit => {
+    const habitRepeatsToday = habit.repeatsOn[todayWeekDay];
+    if (habitRepeatsToday) {
+      const hasAcomplishent = getHabitAcomplishmentByDate(today, habit);
+      if (!hasAcomplishent) {
+        unmarkedHabit = true;
+      }
+    }
+  })
+  return unmarkedHabit;
+}
+
+async function verifyTime() {
+  const todayNotificationSent = await localforage.getItem('todayNotificationSent');
+  const hours = new Date().getHours();
+  // If it's 19:00 and today's notification was not sent yet
+  if (hours === 19 && !todayNotificationSent) {
+    const habits = await localforage.getItem('habits') || [];
+    const mustNotificate = hasUnmarkedHabits(habits);
+    // If there are unmarked habits today
+    if (mustNotificate) {
+      // Send the notification
+      self.registration.showNotification("Don't forget to mark your habits!", {
+        body: 'You have not marked your habits for today yet.'
+      })
+      await localforage.setItem('todayNotificationSent', true);
+    }
+  }
+  // If it's a new day
+  else if (hours === 0) {
+    // Set that today's notification was not sent yet
+    await localforage.setItem('todayNotificationSent', false);
+  }
+  // Call this function again, 1 min later
+  setTimeout(verifyTime, 60000);
+}
+
+async function updateHabits(habits) {
+  console.log('updateHabits', habits)
+  await localforage.setItem('habits', habits);
 }
 
 self.addEventListener('message', event => {
-  console.log('event received on sw', event)
-  switch(event.data?.type){
+  switch (event.data?.type) {
     case 'HABITS_UPDATED':
-      updateHabits(event.data.payload)
+      updateHabits(event.data.payload);
     default:
   }
 })
 
 self.addEventListener('install', () => {
-  console.log('sw install hook')
-  setTimeout(onNotificationTime, 15000)
+  verifyTime();
 })
 
 workbox.core.setCacheNameDetails({ prefix: "minitracker" });

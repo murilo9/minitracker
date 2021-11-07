@@ -177,7 +177,6 @@ export default Vue.extend({
       const dayStatus = habitAcomplishment?.status;
       const isPast = this.isPast(monthDay);
       const weekDay = date.getDay();
-      console.log(`datefor month day ${monthDay} is ${date}`);
       const weekDayRepeat = this.habit.repeatsOn[weekDay];
       // Get color
       switch (dayStatus) {

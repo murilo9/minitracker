@@ -33,6 +33,11 @@ export default new Vuex.Store({
   mutations: {
     addHabit(state: VuexState, habit: Habit) {
       state.habits.push(habit)
+      // Emit event to service worker
+      navigator.serviceWorker.controller?.postMessage({
+        type: 'HABITS_UPDATED',
+        payload: state.habits
+      });
     },
     toggleHabitStatus(state: VuexState, args: { habitId: string, date: DateFormat }) {
       const { habitId, date } = args
@@ -56,6 +61,11 @@ export default new Vuex.Store({
         }
         // Finally, toggles status for the habit acomplishment
         currentHabitAcomplishment.status = nextStatus(currentHabitAcomplishment.status)
+        // Emit event to service worker
+        navigator.serviceWorker.controller?.postMessage({
+          type: 'HABITS_UPDATED',
+          payload: state.habits
+        });
       }
     },
     deleteHabit(state: VuexState, habitId: string) {
@@ -64,6 +74,11 @@ export default new Vuex.Store({
       // If habit exists
       if (habitToDeleteIndex > -1) {
         state.habits.splice(habitToDeleteIndex, 1);
+        // Emit event to service worker
+        navigator.serviceWorker.controller?.postMessage({
+          type: 'HABITS_UPDATED',
+          payload: state.habits
+        });
       }
     },
     saveHabitNote(state: VuexState, payload: { habitId: string, date: DateFormat, text: string }) {
