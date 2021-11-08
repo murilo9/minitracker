@@ -9,29 +9,29 @@ Minitracker is a minimalist habit tracker app.
 
 To add an habit, click the '+' button on the home screen:
 
-![](/img/no-habits.png "")
+<img src="/img/no-habits.png" style="width: 260px;"/>
 
 Name your habit and choose the days you wish to repeat it, then click de 'add' button:
 
-![](/img/adding-habit.png "")
+<img src="/img/adding-habit.png" style="width: 260px;"/>
 
 You will see your habit listed on the home screen. Click the right button to swap the habit acomplishment for today. Clicking on the left arrow button will expand the habit showing an acomplishments table for the current week:
 
-![](/img/listing-habits.png "")
+<img src="/img/listing-habits.png" style="width: 260px;"/>
 
 A blue dash indicates skipped or unset. A red cross means a failure. A green check means it was done.
 
 Click on the habit name to show the habit details view. Here you may see your habit's acomplishments on a monthly-based table. Clicking on the left/right arrow buttons swaps to the previous/next month. A single-click on a day will swap its acomplishment. Unmarked past days will be show as failed by default, unless it's a week day where the habit is not intended to be repeated (in this case they'll be show as skipped). Colors here means the same as mentioned before:
 
-![](/img/habit-details.png "")
+<img src="/img/habit-details.png" style="width: 260px;"/>
 
 Double-click a day to add a note to it:
 
-![](/img/adding-notes.png "")
+<img src="/img/adding-notes.png" style="width: 260px;"/>
 
 Days with attached notes will have small dots bellow them. Double-click on a noted day again to edit its notes or delete them.
 
-![](/img/notes-view.png "")
+<img src="/img/notes-view.png" style="width: 260px;"/>
 
 ## Developer's Guide
 
