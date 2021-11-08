@@ -1,7 +1,8 @@
 # Minitracker
 
-- Minitracker is a minimalist habit tracker app.
-- It works as a web app as well as a PWA (recommended for best experience).
+Minitracker is a minimalist habit tracker app.
+
+It works as a web app as well as a PWA (recommended for best UX).
 
 ## Users' Guide
 
@@ -46,7 +47,7 @@ As users could also add a note for a specific day of an habit (e.g. to say why t
 
 As some habits could not be practiced on certain days of the week, each habit has a ```repeatsOn``` array, that shows which days of week it should be done.
 
-Every date is represented as a ```DateFormat```, which consists of an integer array [year, month, day]. Months are zero-indexed, so January is 0 and December is 11.
+Every date is represented as a ```DateFormat```, which consists of an integer array [year, monthIndex, day].
 
 Example of an habit:
 
@@ -94,32 +95,4 @@ Example of an habit:
 }
 ```
 
-The example about the 'ride bike' habit says the user has marked it as done on days November 17th and 18th, skipped it on November 19th and failed to do it on November 22th. The user posted some notes saying he skipped the habit on November 19th because of Jimmy's birthday party, and he failed on November 22th because he was... not on the mood that day. He created the habit aiming to not practice it on weekends and tuesdays (indexes 0, 5 and 2, repectively).
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+This example about the 'ride bike' habit says the user has marked it as done on days November 17th and 18th, skipped it on November 19th and failed to do it on November 22th. The user posted some notes saying he skipped the habit on November 19th because of Jimmy's birthday party, and he failed on November 22th because he was... not on the mood that day. He created the habit aiming to not practice it on weekends and tuesdays (indexes 0, 5 and 2, repectively).
