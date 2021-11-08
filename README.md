@@ -37,6 +37,7 @@ Days with attached notes will have small dots bellow them. Double-click on a not
 
 ### Data structures
 
+All types stay in the ```/src/types``` folder.
 In order to the user keep track of their habits, we need an array of ```Habit```s. An ```Habit``` must have an ```id``` so it can be indexed as well as a ```name``` so users can refer to it in a friendly way.
 
 As each habit must have a registry of its daily acomplishments , an ```Habit``` has an ```acomplishments``` array. An ```HabitAcomplishment``` has a ```status``` property that indicates the ```HabitStatus``` (i.e. whether the habit was ```DONE```, ```SKIPPED``` or ```FAILED```) at a specific ```date```.
