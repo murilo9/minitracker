@@ -3,13 +3,37 @@
 - Minitracker is a minimalist habit tracker app.
 - It works as a web app as well as a PWA (recommended for best experience).
 
-## Features
+## Users' Guide
 
-- Managing habits
-- Adding notes for habits
-- Push notifications
+Minitracker is a minimalist habit tracker app.
 
-## How this app was developed
+To add an habit, click the '+' button on the home screen:
+
+![](/img/no-habits.png "")
+
+Name your habit and choose the days you wish to repeat it, then click de 'add' button:
+
+![](/img/adding-habit.png "")
+
+You will see your habit listed on the home screen. Click the right button to swap the habit acomplishment for today. Clicking on the left arrow button will expand the habit showing an acomplishments table for the current week:
+
+![](/img/listing-habits.png "")
+
+A blue dash indicates skipped or unset. A red cross means a failure. A green check means it was done.
+
+Click on the habit name to show the habit details view. Here you may see your habit's acomplishments on a monthly-based table. Clicking on the left/right arrow buttons swaps to the previous/next month. A single-click on a day will swap its acomplishment. Unmarked past days will be show as failed by default, unless it's a week day where the habit is not intended to be repeated (in this case they'll be show as skipped). Colors here means the same as mentioned before:
+
+![](/img/habit-details.png "")
+
+Double-click a day to add a note to it:
+
+![](/img/adding-notes.png "")
+
+Days with attached notes will have small dots bellow them. Double-click on a noted day again to edit its notes or delete them.
+
+![](/img/notes-view.png "")
+
+## Developer's Guide
 
 ### Data structures
 
