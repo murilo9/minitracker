@@ -10,6 +10,7 @@
 <script lang="ts">
 import Habit from "@/types/Habit";
 import getHabitSuccessTotalByYearMonth from "@/utils/getHabitSuccessTotalByYearMonth";
+import monthName from "@/utils/monthName";
 import Vue from "vue";
 export default Vue.extend({
   props: {
@@ -22,15 +23,18 @@ export default Vue.extend({
       return getHabitSuccessTotalByYearMonth(this.month, this.year, this.habit);
     },
     total() {
-      const monthDate = new Date();
-      monthDate.setMonth(this.month as number);
-      monthDate.setDate(0);
+      const monthDate = new Date(
+        this.year as number,
+        (this.month as number) + 1,
+        0
+      );
       const totalDaysInMonth = monthDate.getDate();
       let total = 0;
-      for (let day = 0; day <= totalDaysInMonth; day++) {
+      for (let day = 1; day <= totalDaysInMonth; day++) {
         monthDate.setDate(day);
         const weekDay = monthDate.getDay();
         const dayCounts = (this.habit as Habit).repeatsOn[weekDay];
+        console.log(monthDate, weekDay);
         if (dayCounts) {
           total++;
         }
