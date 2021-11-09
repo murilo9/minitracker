@@ -43,8 +43,8 @@ function hasUnmarkedHabits(habits) {
 async function verifyTime() {
   const todayNotificationSent = await localforage.getItem('todayNotificationSent');
   const hours = new Date().getHours();
-  // If it's 19:00 and today's notification was not sent yet
-  if (hours === 19 && !todayNotificationSent) {
+  // If it's 15:00 and today's notification was not sent yet
+  if (hours === 15 && !todayNotificationSent) {
     const habits = await localforage.getItem('habits') || [];
     const mustNotificate = hasUnmarkedHabits(habits);
     // If there are unmarked habits today
