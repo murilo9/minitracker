@@ -133,9 +133,7 @@ export default Vue.extend({
     },
     isPast(day: number): boolean {
       const today = new Date();
-      const selectedDate = new Date(this.year, this.month, day);
-      selectedDate.setHours(0, 0, 0, 0);
-      return selectedDate.getTime() < today.getTime();
+      return day < today.getDate();
     },
     handleDayClick(monthDay: number) {
       if (this.addNoteMode) {
