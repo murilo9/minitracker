@@ -41,6 +41,9 @@ function hasUnmarkedHabits(habits) {
 }
 
 async function verifyTime() {
+  self.registration.showNotification("Test notification", {
+    body: 'This is the body'
+  })
   const todayNotificationSent = await localforage.getItem('todayNotificationSent');
   const hours = new Date().getHours();
   // If it's 15:00 and today's notification was not sent yet
