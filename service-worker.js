@@ -65,7 +65,6 @@ async function verifyTime() {
     await localforage.setItem('todayNotificationSent', false);
   }
   // Call this function again, 1 min later
-  setTimeout(verifyTime, 60000);
 }
 
 async function updateHabits(habits) {
@@ -82,7 +81,7 @@ self.addEventListener('message', event => {
 })
 
 self.addEventListener('install', () => {
-  verifyTime();
+  setInterval(verifyTime, 60000);
 })
 
 workbox.core.setCacheNameDetails({ prefix: "minitracker" });
