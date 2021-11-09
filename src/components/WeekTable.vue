@@ -75,7 +75,7 @@ export default Vue.extend({
   },
   computed: {
     currentMonth() {
-      return new Date().getMonth() + 1;
+      return new Date().getMonth();
     },
     currentYear() {
       return new Date().getFullYear();
