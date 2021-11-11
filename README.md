@@ -22,7 +22,7 @@ You will see your habit listed on the home screen. Click the right button to swa
 
 A blue dash indicates skipped or unset. A red cross means a failure. A green check means it was done.
 
-Click on the habit name to show the habit details view. Here you may see your habit's acomplishments on a monthly-based table. Clicking on the left/right arrow buttons swaps to the previous/next month. A single-click on a day will swap its acomplishment. Unmarked past days will be show as failed by default, unless it's a week day where the habit is not intended to be repeated (in this case they'll be show as skipped). Colors here means the same as mentioned before:
+Click on the habit name to show the habit details view. Here you may see your habit's acomplishments on a monthly-based table. Clicking on the left/right arrow buttons swaps to the previous/next month. A single-click on a day will swap its acomplishment. Unmarked past days will be show as failed by default, unless it's a week day where the habit is not intended to be repeated (in this case they'll be show as skipped). Colors here mean the same as mentioned before:
 
 <img src="/img/habit-details.png" style="width: 260px;"/>
 
@@ -96,3 +96,5 @@ Example of an habit:
 ```
 
 This example about the 'ride bike' habit says the user has marked it as done on days November 17th and 18th, skipped it on November 19th and failed to do it on November 22th. The user posted some notes saying he skipped the habit on November 19th because of Jimmy's birthday party, and he failed on November 22th because he was... not on the mood that day. He created the habit aiming to not practice it on weekends and tuesdays (indexes 0, 5 and 2, repectively).
+
+The user's habits list is stored on the vuex store, which is persisted by the IndexedDB trough the [localforage](https://github.com/localForage/localForage) lib.
