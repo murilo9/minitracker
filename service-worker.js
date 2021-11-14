@@ -1,4 +1,4 @@
-importScripts("/minitracker/precache-manifest.d6d508b3e9a7a51f7a52b261e868b34e.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/minitracker/precache-manifest.5e9320c05e0a62380deae7009d84eba3.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts('https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js');
 
